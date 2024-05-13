@@ -1,23 +1,7 @@
 <script setup>
 
-const f = {
-    name: "test1",
-    files: ["file1", "file2", "file3"],
-    folders: [
-        {
-            name: "test11",
-            files: ["file11", "file12", "file13"],
-            folders: []
-        },
-        {
-            name: "test12",
-            files: ["file21", "file22", "file23"],
-            folders: []
-        }
-    ]
-}
+const folderStore = useFolder();
 
-const dir = ref(f);
 
 </script>
 
@@ -25,8 +9,8 @@ const dir = ref(f);
 
 <div class="bg-gray-100 border w-60 text-sm text-gray-500">
     <SidebarTopMenu />
-    <SidebarFolder v-for="folder in f.folders" :key="folder" :item="folder" />
-    <SidebarFile v-for="file in f.files" :key="file" :name="file"/>
+    <SidebarFolder v-for="folder in folderStore.dir.folders" :key="folder.id" :item="folder" />
+    <SidebarFile v-for="file in folderStore.dir.files" :key="file.id" :item="file" :layer="0"/>
 </div>
 
 </template>
