@@ -1,7 +1,22 @@
 <script setup lang="ts">
 import { cn } from "~/lib/utils";
-import { ChevronDown, Link } from "lucide-vue-next";
-import { Button } from "@/components/ui/button";
+import { ChevronDown, Link, Link2Off } from "lucide-vue-next";
+import { toast } from "vue-sonner";
+
+const isShare = ref<boolean>(true);
+
+const toggleShare = () => {
+  isShare.value = !isShare.value;
+  if (isShare.value) {
+    toast.success("Link has been copied", {
+      description: "Share the link with your team for collaborative work!",
+    });
+  } else {
+    toast.error("Session is suspended", {
+      description: "Share the link with your team for collaborative work!",
+    });
+  }
+};
 </script>
 
 <template>
@@ -17,23 +32,41 @@ import { Button } from "@/components/ui/button";
       <span class="text-sm font-medium">Compiler</span>
     </div>
     <div class="gap-3 flex items-center">
-      <Button
+      <UiButton
+        @click="toggleShare"
         size="sm"
         variant="outline"
-        class="flex h-full items-center border-dashed gap-2"
+        class="flex h-6 items-center border-dashed gap-2"
       >
-        <Link color="rgb(107 114 128)" :size="14" />
-        <span class="text-sm">Share</span>
-      </Button>
+        <component :is="isShare ? Link2Off : Link" color="rgb(107 114 128)" :size="14" />
+        <span class="text-sm">{{isShare ? 'Unshare' : 'Share'}}</span>
+      </UiButton>
       <div class="gap-1 flex items-center">
-        <UiAvatar class="h-6 w-6 cursor-pointer">
+        <UiAvatar class="h-6 w-6">
           <UiAvatarImage
             class="object-cover"
             src="https://www.shadcn-vue.com/avatars/02.png"
           />
           <UiAvatarFallback> al </UiAvatarFallback>
         </UiAvatar>
-        <ChevronDown color="rgb(107 114 128)" :size="14" />
+        <UiDropdownMenu>
+          <UiDropdownMenuTrigger as-child>
+            <ChevronDown
+              class="cursor-pointer"
+              color="rgb(107 114 128)"
+              :size="14"
+            />
+          </UiDropdownMenuTrigger>
+          <UiDropdownMenuContent>
+            <UiDropdownMenuLabel class="text-[13px]"
+              >user@gmail.com</UiDropdownMenuLabel
+            >
+            <UiDropdownMenuSeparator />
+            <UiDropdownMenuItem class="text-[13px]"
+              >Sign Out</UiDropdownMenuItem
+            >
+          </UiDropdownMenuContent>
+        </UiDropdownMenu>
       </div>
     </div>
   </div>
