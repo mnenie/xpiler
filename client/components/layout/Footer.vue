@@ -1,3 +1,5 @@
 <template>
-  <div></div>
+  <div class="bg-red-600">
+    footer
+  </div>
 </template>
