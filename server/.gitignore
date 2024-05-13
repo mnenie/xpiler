@@ -1,0 +1,5 @@
+.DS_Store
+.fleet
+.idea
+node_modules
+.env

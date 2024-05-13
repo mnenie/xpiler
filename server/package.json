@@ -1,0 +1,29 @@
+{
+  "name": "backend-for-mirea-compiler",
+  "version": "1.0.0",
+  "description": "backend made for hackaton by airvt1x",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "supervisor index.js"
+  },
+  "type":"module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mnenie/compiler-mirea.git#backend"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mnenie/compiler-mirea/issues"
+  },
+  "homepage": "https://github.com/mnenie/compiler-mirea/tree/backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.3.4",
+    "supervisor": "^0.12.0"
+  }
+}
