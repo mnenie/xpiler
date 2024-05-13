@@ -1,7 +1,7 @@
 <template>
   <div class="grid-container h-dvh w-full">
     <LayoutHeader class="header" />
-    <!-- <LayoutSidebarTest class="sidebar" /> -->
+    <LayoutSidebarExplorer class="sidebar" />
     <div class="slot">
       <slot />
     </div>
