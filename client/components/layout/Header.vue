@@ -3,7 +3,7 @@ import { cn } from "~/lib/utils";
 import { ChevronDown, Link, Link2Off } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 
-const isShare = ref<boolean>(true);
+const isShare = ref<boolean>(false);
 
 const toggleShare = () => {
   isShare.value = !isShare.value;
@@ -24,25 +24,25 @@ const toggleShare = () => {
     :class="
       cn([
         $attrs.class,
-        'h-8 w-full flex items-center justify-between bg-zinc-200 border-b border-b-zinc-300 px-4',
+        'h-10 w-full flex items-center justify-between bg-zinc-200 border-b border-b-zinc-300 px-4',
       ])
     "
   >
     <div>
-      <span class="text-sm font-medium">Compiler</span>
+      <span class="text-base font-medium">Compiler</span>
     </div>
     <div class="gap-3 flex items-center">
       <UiButton
         @click="toggleShare"
         size="sm"
         variant="outline"
-        class="flex h-6 items-center border-dashed gap-2"
+        class="flex h-7 items-center border-dashed gap-2"
       >
-        <component :is="isShare ? Link2Off : Link" color="rgb(107 114 128)" :size="14" />
-        <span class="text-[13px]">{{isShare ? 'Unshare' : 'Share'}}</span>
+        <component :is="isShare ? Link2Off : Link" color="rgb(107 114 128)" :size="15" />
+        <span class="text-sm">{{isShare ? 'Unshare' : 'Share'}}</span>
       </UiButton>
       <div class="gap-1 flex items-center">
-        <UiAvatar class="h-5 w-5">
+        <UiAvatar class="h-6 w-6">
           <UiAvatarImage
             class="object-cover"
             src="https://www.shadcn-vue.com/avatars/02.png"
@@ -54,7 +54,7 @@ const toggleShare = () => {
             <ChevronDown
               class="cursor-pointer"
               color="rgb(107 114 128)"
-              :size="14"
+              :size="16"
             />
           </UiDropdownMenuTrigger>
           <UiDropdownMenuContent>

@@ -38,10 +38,10 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
 <template>
   <DialogPortal>
     <DialogOverlay
-      class="fixed inset-0 z-50 bg-black/10 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
+      class="fixed inset-0 z-50 bg-black/0 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
     />
     <DialogContent
-      :class="cn(sheetVariants({ side }), props.class, 'inset-y-8 h-90 rounded-md sm:max-w-full w-[500px] pb-0')"
+      :class="cn(sheetVariants({ side }), props.class, 'inset-y-10 h-90 shadow-none sm:max-w-full w-[500px] pb-0')"
       v-bind="{ ...forwarded, ...$attrs }"
     >
       <slot />

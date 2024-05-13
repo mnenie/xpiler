@@ -2,15 +2,12 @@ import type * as monaco from "monaco-editor";
 
 export const defaultOptions: monaco.editor.IStandaloneEditorConstructionOptions =
   {
-    theme: "vs",
-    wordWrap: "on",
-    automaticLayout: true,
-    autoIndent: "none",
-    selectOnLineNumbers: true,
-    roundedSelection: false,
-    readOnly: false,
-    cursorStyle: "line",
-    glyphMargin: true,
-    useTabStops: false,
+    wordWrap: "bounded",
     fontSize: 14,
+    scrollBeyondLastLine: false,
+    renderWhitespace: "selection",
+    tabSize: 2,
+    minimap: {
+      enabled: false,
+    },
   };
