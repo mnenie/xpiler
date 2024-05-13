@@ -8,8 +8,9 @@ const props = defineProps({
 
 <template>
 
-<div>
-    {{ props.name }}
+<div class="flex flex-row space-x-2 items-center cursor-pointer px-3">
+  <iconsFileIcon />
+  <p>{{ props.name }}</p>  
 </div>
 
 </template>
