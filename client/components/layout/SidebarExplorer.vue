@@ -23,7 +23,7 @@ const dir = ref(f);
 
 <template>
 
-<div class="bg-slate-50 border w-60 text-sm text-gray-500">
+<div class="bg-gray-100 border w-60 text-sm text-gray-500">
     <SidebarTopMenu />
     <SidebarFolder v-for="folder in f.folders" :key="folder" :item="folder" />
     <SidebarFile v-for="file in f.files" :key="file" :name="file"/>

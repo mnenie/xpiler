@@ -3,6 +3,7 @@
     <LayoutHeader class="header" />
     <LayoutSidebarExplorer class="sidebar" />
     <div class="slot">
+      <EditorTabs />
       <slot />
     </div>
     <LayoutFooter class="footer" />
@@ -31,6 +32,8 @@
 
 .slot{
   grid-area: slot;
+  display: flex;
+  flex-direction: column;
 }
 
 .footer{

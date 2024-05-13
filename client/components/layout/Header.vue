@@ -24,7 +24,7 @@ const toggleShare = () => {
     :class="
       cn([
         $attrs.class,
-        'h-8 w-full flex items-center justify-between bg-gray-50 border border-b-gray-100 px-4',
+        'h-8 w-full flex items-center justify-between bg-gray-100 border border-b-gray-100 px-4',
       ])
     "
   >
@@ -39,7 +39,7 @@ const toggleShare = () => {
         class="flex h-6 items-center border-dashed gap-2"
       >
         <component :is="isShare ? Link2Off : Link" color="rgb(107 114 128)" :size="14" />
-        <span class="text-sm">{{isShare ? 'Unshare' : 'Share'}}</span>
+        <span class="text-[13px]">{{isShare ? 'Unshare' : 'Share'}}</span>
       </UiButton>
       <div class="gap-1 flex items-center">
         <UiAvatar class="h-6 w-6">
