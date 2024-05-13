@@ -24,7 +24,7 @@ const toggleShare = () => {
     :class="
       cn([
         $attrs.class,
-        'h-8 w-full flex items-center justify-between bg-gray-100 border border-b-gray-100 px-4',
+        'h-8 w-full flex items-center justify-between bg-zinc-200 border-b border-b-zinc-300 px-4',
       ])
     "
   >
@@ -42,7 +42,7 @@ const toggleShare = () => {
         <span class="text-[13px]">{{isShare ? 'Unshare' : 'Share'}}</span>
       </UiButton>
       <div class="gap-1 flex items-center">
-        <UiAvatar class="h-6 w-6">
+        <UiAvatar class="h-5 w-5">
           <UiAvatarImage
             class="object-cover"
             src="https://www.shadcn-vue.com/avatars/02.png"

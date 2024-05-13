@@ -12,5 +12,5 @@ export const defaultOptions: monaco.editor.IStandaloneEditorConstructionOptions 
     cursorStyle: "line",
     glyphMargin: true,
     useTabStops: false,
-    fontSize: 16,
+    fontSize: 14,
   };
