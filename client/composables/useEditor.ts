@@ -9,13 +9,12 @@ export default function useEditor(
   monacoRef: vue_demi.ShallowRef<Nullable<typeof monaco_editor>>,
   files: Ref<Tab[]>,
   modelMap: Map<string, monaco.editor.ITextModel>,
-  viewStateMap: Map<string, monaco.editor.IEditorViewState>
 ) {
-  const editorRef = ref<monaco.editor.IEditor>();
+  const editorRef = shallowRef<monaco.editor.IEditor>();
   const content = ref("");
   const activeFile = ref<Tab>();
 
-  const onLoad = async() => {
+  const onLoad = (editor: monaco.editor.IEditor) => {
     const monaco = monacoRef.value;
     if (!monaco) return;
 
@@ -41,7 +40,8 @@ export default function useEditor(
         path: file.path,
       } as Tab;
     });
-    switchTab(files.value.at(0)!)
+    editorRef.value = editor
+    switchTab(files.value.at(0)!);
   };
 
   const switchTab = (to: Tab) => {

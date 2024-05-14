@@ -3,18 +3,27 @@ import { VueMonacoEditor, useMonaco } from "@guolao/vue-monaco-editor";
 import type * as monaco from "monaco-editor";
 import type { Tab } from "~/types/editor.inteface";
 import { cn } from "~/lib/utils";
+import { Play } from "lucide-vue-next";
 
 const files = ref<Tab[]>([{ path: "untiled.ts" }, { path: "new.js" }]);
 const modelMap = new Map<string, monaco.editor.ITextModel>();
-const viewStateMap = new Map<string, monaco.editor.IEditorViewState>();
+const output = ref("");
 
 const { monacoRef } = useMonaco();
 const { editorRef, onLoad, content, activeFile, switchTab } = useEditor(
   monacoRef,
   files,
-  modelMap,
-  viewStateMap
+  modelMap
 );
+
+const language = ref("typescript");
+
+const { executeCode, isPending } = useTerminal(language, content);
+
+const compileCode = async () => {
+  const {run: data} = await executeCode();
+  output.value = data.output;
+};
 
 onUnmounted(() => {
   editorRef.value?.dispose();
@@ -33,19 +42,21 @@ onUnmounted(() => {
         @click="switchTab(file)"
         :class="
           cn(
-            'list-none, text-gray-900 text-base py-1 px-3 border-r border-zinc-300 cursor-pointer',
+            'list-none, text-gray-900 text-[13px] flex items-center gap-2 py-1 px-3 border-r border-zinc-300 cursor-pointer',
             [activeFile?.path === file.path ? 'bg-white' : 'bg-zinc-100/60']
           )
         "
       >
         {{ file.path }}
+        <Play @click="compileCode" :size="12" color="rgb(5 150 105)" />
       </li>
     </ul>
     <vue-monaco-editor
       v-model:value="content"
       :default-language="'typescript'"
       :options="defaultOptions"
-      @mount="onLoad()"
+      @mount="onLoad"
     />
+    <EditorTerminal :output="output" :is-pending="isPending" />
   </div>
 </template>

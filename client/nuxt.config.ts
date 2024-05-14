@@ -6,4 +6,9 @@ export default defineNuxtConfig({
     prefix: "Ui",
     componentDir: "./components/ui",
   },
+  runtimeConfig: {
+    public: {
+      API_CODE: process.env.API_CODE
+    }
+  }
 });

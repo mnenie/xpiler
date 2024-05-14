@@ -41,7 +41,7 @@ const toggleShare = () => {
         <component :is="isShare ? Link2Off : Link" color="rgb(107 114 128)" :size="15" />
         <span class="text-sm">{{isShare ? 'Unshare' : 'Share'}}</span>
       </UiButton>
-      <div class="gap-1 flex items-center">
+      <div class="gap-0.5 flex items-center">
         <UiAvatar class="h-6 w-6">
           <UiAvatarImage
             class="object-cover"
@@ -54,7 +54,7 @@ const toggleShare = () => {
             <ChevronDown
               class="cursor-pointer"
               color="rgb(107 114 128)"
-              :size="16"
+              :size="15"
             />
           </UiDropdownMenuTrigger>
           <UiDropdownMenuContent>

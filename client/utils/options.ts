@@ -8,6 +8,6 @@ export const defaultOptions: monaco.editor.IStandaloneEditorConstructionOptions 
     renderWhitespace: "selection",
     tabSize: 2,
     minimap: {
-      enabled: false,
+      enabled: true,
     },
   };
