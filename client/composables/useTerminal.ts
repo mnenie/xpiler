@@ -1,12 +1,13 @@
-export default function useTerminal(
-  language: Ref<string>,
-  editorInstance: Ref<string>
-) {
+export default function useTerminal() {
   const { $apiCode } = useNuxtApp();
   const isPending = ref<boolean>(false);
-  const executeCode = async () => {
+
+  const executeCode = async (
+    language: Ref<string>,
+    editorInstance: Ref<string>
+  ) => {
+    isPending.value = true;
     try {
-      isPending.value = true;
       const response = await $apiCode.post("/execute", {
         language: language.value,
         version: LANGUAGE_VERSIONS[language.value],

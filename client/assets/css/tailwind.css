@@ -2,6 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.view-line{
-    border: none !important;
+.view-line {
+  border: none !important;
 }

@@ -1,7 +1,5 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
-  <EditorMonaco />
+  <div class="h-full overflow-hidden">
+    <EditorMonaco />
+  </div>
 </template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { SquareTerminal, CheckCheck } from "lucide-vue-next";
 
-defineProps<{
+const props = defineProps<{
   output: string;
   isPending: boolean;
 }>();
@@ -9,7 +9,9 @@ defineProps<{
 
 <template>
   <div class="w-full">
-    <div class="bg-white w-full min-h-44">
+    <div
+      class="relative h-52 bg-white w-full owflow-hidden"
+    >
       <div class="flex w-full bg-zinc-100/60 border-t border-zinc-300">
         <div
           class="flex items-center gap-2 px-4 py-0.5 bg-white border-r border-zinc-300 text-[13px] font-medium"
@@ -22,10 +24,15 @@ defineProps<{
           Terminal
         </div>
       </div>
-      <div class="font-medium p-4 flex flex-col gap-4">
-        Last login: Mon May 13 22:26:30 on ttys001
-        <div v-if="output && !isPending" class="flex flex-col gap-1">
-          <span :class="'text-green-500'">Compiler 0.0.1</span>
+      <div class="p-4 flex flex-col gap-4">
+        <span class="font-medium"
+          >Last login: Mon May 13 22:26:30 on ttys001</span
+        >
+        <div
+          v-if="output && !isPending"
+          class="flex flex-col gap-1 overflow-auto h-32"
+        >
+          <span :class="'text-green-700'">Compiler 0.0.1</span>
           <div class="flex items-center gap-2">
             <CheckCheck
               class="cursor-pointer text-slate-50"
@@ -35,9 +42,7 @@ defineProps<{
             <span>{{ output }}</span>
           </div>
         </div>
-        <div v-if="isPending"
-          class="flex items-center gap-2"
-        >
+        <div v-if="isPending" class="flex items-center gap-2">
           <span>Compiler is thinking</span>
           <div
             class="inline-flex h-1.5 w-1.5 animate-ping rounded-full bg-zinc-400"

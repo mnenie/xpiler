@@ -18,10 +18,10 @@ const { editorRef, onLoad, content, activeFile, switchTab } = useEditor(
 
 const language = ref("typescript");
 
-const { executeCode, isPending } = useTerminal(language, content);
+const { executeCode, isPending } = useTerminal();
 
 const compileCode = async () => {
-  const {run: data} = await executeCode();
+  const {run: data} = await executeCode(language, content);
   output.value = data.output;
 };
 
@@ -34,7 +34,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="w-full flex flex-col h-full">
+  <div class="w-full flex flex-col h-full overflow-hidden relative">
     <ul class="flex w-full bg-zinc-100/60 border-b border-zinc-300">
       <li
         v-for="file in files"
