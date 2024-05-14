@@ -6,7 +6,7 @@ const folderStore = useFolder();
 
 <template>
 
-<div class="flex flex-row w-full h-8 border px-4 items-center">
+<div class="flex flex-row w-full py-1.5 border-b px-4 items-center">
     <div class="basis-4/5 font-semibold">
         <p>My workspace</p>
     </div>

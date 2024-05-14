@@ -6,7 +6,7 @@ const props = defineProps(["item"])
 const hover = ref(false);
 
 const identStyle = reactive({
-  marginLeft: `${props.item.layer * 5 + 5}px`
+  marginLeft: `${props.item.layer * 10 + 10}px`
 })
 
 </script>
@@ -14,11 +14,11 @@ const identStyle = reactive({
 <template>
 
 <div>
-    <div @mouseenter="hover = true" @mouseleave="hover = false" :style="identStyle" class="flex flex-row hover:bg-slate-300 px-3">
+    <div @mouseenter="hover = true" @mouseleave="hover = false" :style="identStyle" class="flex flex-row hover:bg-slate-300 px-3 my-2">
       <div class="flex flex-row space-x-2 items-center cursor-pointer basis-4/5">
         <iconsFolderIcon />
         <!-- debug outputs -->
-        <p>{{ props.item.name }}</p> 
+        <p class="text-[13px] md:text-[13px] 2xl:text-[14px]">{{ props.item.name }}</p> 
       </div>
       <div v-if="hover" class="flex flex-row space-x-1 items-center">
         <iconsFilePlusIcon @click="folderStore.createFile(props.item.id, props.item, props.item.layer + 1)" />
