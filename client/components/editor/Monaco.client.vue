@@ -21,7 +21,7 @@ const language = ref("typescript");
 const { executeCode, isPending } = useTerminal();
 
 const compileCode = async () => {
-  const {run: data} = await executeCode(language, content);
+  const { run: data } = await executeCode(language, content);
   output.value = data.output;
 };
 
@@ -35,14 +35,14 @@ onUnmounted(() => {
 
 <template>
   <div class="w-full flex flex-col h-full overflow-hidden relative">
-    <ul class="flex w-full bg-zinc-100/60 border-b border-zinc-300">
+    <ul class="flex w-full border-b bg-zinc-200/60 border-zinc-300">
       <li
         v-for="file in files"
         :key="file.path"
         @click="switchTab(file)"
         :class="
           cn(
-            'list-none, text-gray-900 text-[13px] flex items-center gap-2 py-1 px-3 border-r border-zinc-300 cursor-pointer',
+            'list-none, text-gray-900 text-[13px] md:text-[13px] 2xl:text-[14px] flex items-center gap-2 py-1 px-3 border-r border-zinc-300 cursor-pointer',
             [activeFile?.path === file.path ? 'bg-white' : 'bg-zinc-100/60']
           )
         "

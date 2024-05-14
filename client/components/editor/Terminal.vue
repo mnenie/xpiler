@@ -25,25 +25,25 @@ const props = defineProps<{
         </div>
       </div>
       <div class="p-4 flex flex-col gap-4">
-        <span class="font-medium"
+        <span class="font-medium text-sm"
           >Last login: Mon May 13 22:26:30 on ttys001</span
         >
         <div
           v-if="output && !isPending"
           class="flex flex-col gap-1 overflow-auto h-32"
         >
-          <span :class="'text-green-700'">Compiler 0.0.1</span>
+          <span :class="'text-green-700 text-sm'">Compiler 0.0.1</span>
           <div class="flex items-center gap-2">
             <CheckCheck
               class="cursor-pointer text-slate-50"
               color="rgb(161 161 170)"
               :size="11"
             />
-            <span>{{ output }}</span>
+            <span class="text-sm">{{ output }}</span>
           </div>
         </div>
         <div v-if="isPending" class="flex items-center gap-2">
-          <span>Compiler is thinking</span>
+          <span class="text-sm">Compiler is thinking</span>
           <div
             class="inline-flex h-1.5 w-1.5 animate-ping rounded-full bg-zinc-400"
           />

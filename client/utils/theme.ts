@@ -264,7 +264,7 @@ export default {
   colors: {
     "editor.foreground": "#27282e",
     "editor.background": "#ffffff",
-    "editor.selectionBackground": "#f7f7f7",
+    "editor.selectionBackground": "#c8daf7",
     "editor.lineHighlightBackground": "#fafafa",
     "editorCursor.foreground": "#262626",
     "editorWhitespace.foreground": "#f5f5f5",
