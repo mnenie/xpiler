@@ -35,8 +35,8 @@ export const useFolder = defineStore('folder', () => {
         if (parentId == folder.id){
             folder.files.push({
                 id: globalId.toString(),
-                name: "New file",
-                extension: "txt",
+                name: "index",
+                extension: "js",
                 isSaved: true,
             } as IFile);
             globalId += 1;

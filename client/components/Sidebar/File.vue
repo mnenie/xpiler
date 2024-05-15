@@ -19,7 +19,7 @@ const hover = ref(false);
 
 <div @mouseenter="hover = true" @mouseleave="hover = false" :style="identStyle" class="flex flex-row my-2">
   <div class="flex flex-row basis-4/5 space-x-2 items-center cursor-pointer px-3">
-    <iconsFileIcon />
+    <iconsFileIcon :extension="props.item.extension" />
     <!-- debug outputs -->
     <p class="text-[13px] md:text-[13px] 2xl:text-[14px] font-medium">{{ props.item.name }}.{{ props.item.extension }}</p>
   </div>
