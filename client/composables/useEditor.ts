@@ -2,8 +2,10 @@ import type * as monaco from "monaco-editor";
 import * as vue_demi from "vue-demi";
 import * as monaco_editor from "monaco-editor";
 import type { IFile } from "~/types/folder.interface";
+import { useColorMode } from "@vueuse/core";
 
 type Nullable<T> = T | null;
+const mode = useColorMode();
 
 export default function useEditor(
   monacoRef: vue_demi.ShallowRef<Nullable<typeof monaco_editor>>,
@@ -19,14 +21,14 @@ export default function useEditor(
     if (!monaco) return;
 
     monaco.editor!.defineTheme("theme", theme);
-    monaco.editor!.setTheme("theme");
+    monaco.editor!.setTheme(mode.value === "light" ? "vs" : "theme");
 
     files = [...files].map((file) => {
       content.value = file.content;
       const uri = monaco.Uri.parse(`${file.name}.${file.extension}`);
       const model = monaco.editor.createModel(
         content.value,
-        file.extension == "ts" ? "typescript" : "javascript",
+        file.extension === "ts" ? "typescript" : "javascript",
         uri
       );
       modelMap.set(file.id, model);
@@ -57,6 +59,11 @@ export default function useEditor(
 
     }
   };
+
+  watch(() => mode.value, () => {
+    monacoRef.value?.editor!.defineTheme("theme", theme);
+    monacoRef.value?.editor!.setTheme(mode.value === "light" ? "vs" : "theme");
+  });
 
   return {
     editorRef,

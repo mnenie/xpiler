@@ -5,3 +5,7 @@
 .view-line {
   border: none !important;
 }
+
+body {
+  @apply dark:bg-[#222224];
+}

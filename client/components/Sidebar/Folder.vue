@@ -1,4 +1,6 @@
-<script setup>
+<script setup lang="ts">
+import { useColorMode } from '@vueuse/core';
+
 const folderStore = useFolder();
 
 const props = defineProps(["item"]);
@@ -7,8 +9,10 @@ const renaming = ref(false);
 let newName = props.item.name;
 
 const identStyle = reactive({
-  marginLeft: `${props.item.layer * 10 + 10}px`,
+  paddingLeft: `${props.item.layer * 14 + 14}px`,
 });
+
+const mode = useColorMode();
 </script>
 
 <template>
@@ -17,14 +21,14 @@ const identStyle = reactive({
       @mouseenter="hover = true"
       @mouseleave="hover = false"
       :style="identStyle"
-      class="flex flex-row hover:bg-slate-300 my-2"
+      class="flex flex-row hover:bg-slate-300 dark:hover:bg-zinc-700/40 my-1 py-1"
     >
       <div
         class="flex flex-row space-x-2 items-center cursor-pointer basis-4/5"
       >
-        <iconsFolderIcon />
+        <iconsFolderIcon :class="mode === 'dark' ? 'text-zinc-100' : ''" />
         <!-- debug outputs -->
-        <p v-if="!renaming" class="text-[13px] md:text-[13px] 2xl:text-[14px]">
+        <p v-if="!renaming" class="text-[13px] md:text-[13px] 2xl:text-[14px] dark:text-zinc-300">
           {{ props.item.name }}
         </p>
         <form

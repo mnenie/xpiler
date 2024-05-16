@@ -8,7 +8,7 @@ import { ListTree, MessagesSquare, SquareTerminal, Bot } from "lucide-vue-next";
     :class="
       cn([
         $attrs.class,
-        'h-8 w-full flex items-center justify-between bg-zinc-200 border border-t-zinc-300 px-4',
+        'h-8 w-full flex items-center justify-between bg-zinc-200 border-t-zinc-300 px-4 dark:bg-[#222224] dark:border-t-[#3f3f45] dark:text-zinc-200',
       ])
     "
   >

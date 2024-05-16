@@ -1,24 +1,27 @@
 <script setup lang="ts">
+import { useColorMode } from "@vueuse/core";
 import { SquareTerminal, CheckCheck } from "lucide-vue-next";
 
 const props = defineProps<{
   output: string;
   isPending: boolean;
 }>();
+
+const mode = useColorMode();
 </script>
 
 <template #terminal>
   <div class="w-full">
     <div
-      class="relative h-52 bg-white w-full owflow-hidden"
+      class="relative h-52 bg-white w-full owflow-hidden dark:bg-[#2a2a30] dark:text-zinc-200"
     >
-      <div class="flex w-full bg-zinc-100/60 border-t border-zinc-300">
+      <div class="flex w-full bg-zinc-100/60 border-t border-zinc-300 dark:bg-zinc-800 dark:border-[#3f3f45]">
         <div
-          class="flex items-center gap-2 px-4 py-0.5 bg-white border-r border-zinc-300 text-[13px] font-medium"
+          class="flex items-center gap-2 px-4 py-0.5 bg-white border-r border-zinc-300 dark:border-[#3f3f45] text-[13px] font-medium dark:bg-[#2a2a30]"
         >
           <SquareTerminal
             class="cursor-pointer text-slate-50"
-            color="rgb(9 9 11)"
+            :color="mode === 'dark' ? 'rgb(228 228 231)' : 'rgb(9 9 11)'"
             :size="14"
           />
           Terminal

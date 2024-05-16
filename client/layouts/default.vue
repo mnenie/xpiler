@@ -1,3 +1,12 @@
+<script setup lang="ts">
+import { useColorMode } from "@vueuse/core";
+const { store } = useColorMode();
+
+onMounted(() => {
+  store.value = "dark";
+})
+</script>
+
 <template>
   <div class="grid-container h-dvh w-full">
     <LayoutHeader class="header" />
@@ -29,13 +38,13 @@
   grid-area: sidebar;
 }
 
-.slot{
+.slot {
   grid-area: slot;
   display: flex;
   flex-direction: column;
 }
 
-.footer{
+.footer {
   grid-area: footer;
 }
 </style>

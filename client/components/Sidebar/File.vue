@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useMonaco } from "@guolao/vue-monaco-editor";
 import type { IFile } from "~/types/folder.interface";
 import { cn } from "~/lib/utils";
 
@@ -9,11 +8,11 @@ const editorStore = useEditorStore();
 const props = defineProps<{
   item: IFile;
   layer: number;
-  dir: string;
+  dir?: string;
 }>();
 
 const identStyle = reactive({
-  paddingLeft: `${props.layer * 10 + 10}px`,
+  paddingLeft: `${props.layer * 12 + 12}px`,
 });
 
 const hover = ref(false);
@@ -35,16 +34,16 @@ const isActiveRoute = computed(() => {
     @mouseenter="hover = true"
     @mouseleave="hover = false"
     :style="identStyle"
-    :class="cn('flex flex-row my-2', { 'bg-zinc-200 w-full': isActiveRoute(item.id) })"
+    :class="cn('flex flex-row my-1 py-1', { 'bg-zinc-200 w-full dark:bg-zinc-700/40': isActiveRoute(item.id) })"
   >
     <div
-      class="flex flex-row basis-4/5 space-x-2 items-center cursor-pointer px-3"
+      class="flex flex-row basis-4/5 space-x-2 items-center cursor-pointer px-1"
     >
       <iconsFileIcon :extension="props.item.extension" />
       <!-- debug outputs -->
       <p
         v-if="!renaming"
-        class="text-[13px] md:text-[13px] 2xl:text-[14px] font-medium"
+        class="text-[13px] md:text-[13px] 2xl:text-[14px] font-medium dark:text-zinc-300"
       >
         {{ props.item.name }}.{{ props.item.extension }}
       </p>

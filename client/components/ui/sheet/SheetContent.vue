@@ -41,7 +41,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
       class="fixed inset-0 z-50 bg-black/20 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
     />
     <DialogContent
-      :class="cn(sheetVariants({ side }), props.class, 'inset-y-10 h-[92.4%] shadow-none sm:max-w-full w-[540px] pb-0')"
+      :class="cn(sheetVariants({ side }), props.class, 'inset-y-10 h-[92%] shadow-none sm:max-w-full w-[540px] pb-0')"
       v-bind="{ ...forwarded, ...$attrs }"
     >
       <slot />
@@ -49,7 +49,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
       <DialogClose
         class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-white transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-gray-950 focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-gray-100 dark:ring-offset-gray-950 dark:focus:ring-gray-300 dark:data-[state=open]:bg-gray-800"
       >
-        <Cross2Icon class="w-4 h-4" />
+        <Cross2Icon class="w-4 h-4 dark:text-zinc-200" />
       </DialogClose>
     </DialogContent>
   </DialogPortal>

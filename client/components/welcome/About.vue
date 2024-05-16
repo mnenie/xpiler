@@ -10,19 +10,18 @@ import { redirect } from "~/helpers/helperRedirect";
       <h1
         class="mb-1 text-center text-3xl font-bold leading-tight tracking-tighter dark:text-zinc-100 md:text-6xl lg:leading-[1.1]"
       >
-        Code your thoughts with Compiler
+        Code your thoughts with Xpiler
       </h1>
       <p
         class="max-w-[600px] text-center text-lg text-[#72717a] dark:text-zinc-400 sm:text-xl"
       >
-        Сode, enjoy, chat in our code editor. Share your thoughts and train your
-        algorithms. Compiler will be glad to help you!
+        Сode, enjoy, chat in our code editor. Share your thoughts and asking some info in aour build-in AI. Xpiler will be glad to help you!
       </p>
       <div
         class="flex w-full items-center justify-center space-x-4 py-4 md:pb-10"
       >
         <UiButton @click="navigateTo(COMPILER_ABOUT_ROUTE)"
-          >Go to Compiler</UiButton
+          >Go to Xpiler</UiButton
         >
         <UiButton
           @click="redirect('https://github.com/mnenie/Notium')"

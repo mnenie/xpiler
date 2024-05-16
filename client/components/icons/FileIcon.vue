@@ -5,8 +5,8 @@ const props = defineProps({
 </script>
 
 <template>
-  <iconsExtensionTypescript v-if="props.extension == 'ts'" />
-  <iconsExtensionJavascript v-else-if="props.extension == 'js'" />
+  <iconsExtensionTypescript v-if="props.extension == 'ts'"/>
+  <iconsExtensionJavascript v-else-if="props.extension == 'js'"/>
   <IconsExtensionCPlusPlus v-else-if="props.extension == 'cpp'" />
   <IconsExtensionCSS v-else-if="props.extension == 'css'" />
   <IconsExtensionHTML v-else-if="props.extension == 'html'" />
@@ -32,7 +32,8 @@ const props = defineProps({
 
 <style scoped>
 svg {
-  width: 12px;
-  height: 12px;
+  width: 11px;
+  height: 11px;
+  @apply dark:text-zinc-100
 }
 </style>
