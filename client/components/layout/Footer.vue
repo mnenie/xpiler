@@ -31,7 +31,7 @@ import { ListTree, MessagesSquare, SquareTerminal, Bot } from "lucide-vue-next";
         </BotChat>
         <SquareTerminal
           class="cursor-pointer"
-          color="rgb(107 114 128)"
+          color="rgb(59 130 246)"
           :size="15"
         />
       </div>

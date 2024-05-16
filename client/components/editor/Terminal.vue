@@ -7,7 +7,7 @@ const props = defineProps<{
 }>();
 </script>
 
-<template>
+<template #terminal>
   <div class="w-full">
     <div
       class="relative h-52 bg-white w-full owflow-hidden"
