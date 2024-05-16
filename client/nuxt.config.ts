@@ -9,6 +9,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       API_CODE: process.env.API_CODE
-    }
+    },
+    YANDEX_API_KEY: process.env.YANDEX_API_KEY,
+    YANDEX_FOLDER_ID: process.env.YANDEX_FOLDER_ID,
+    YANDEX_OAUTH: process.env.YANDEX_OAUTH
   }
 });

@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import { ArrowBigUpDash } from "lucide-vue-next";
+
+const emits = defineEmits<{
+  (e: 'onSubmit'): void;
+}>();
+const message = defineModel<string>()
 </script>
 
 <template>
   <div class="sticky bottom-0 z-50 flex w-full flex-col items-center justify-end">
-    <form class="relative w-full">
-      <UiInput :placeholder="'Message AI'" class="h-8" />
+    <form @submit.prevent="emits('onSubmit')" class="relative w-full">
+      <UiInput v-model="message" :placeholder="'Message AI'" class="h-8" />
       <UiButton
         type="submit"
         variant="ghost"
