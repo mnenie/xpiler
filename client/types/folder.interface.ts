@@ -1,6 +1,6 @@
 export interface IFolder {
-    id: String,
-    name: String,
+    id: string,
+    name: string,
     files: Array<IFile>,
     folders: Array<IFolder>,
     parentId: String,
@@ -9,8 +9,9 @@ export interface IFolder {
 }
 
 export interface IFile {
-    id: String,
-    name: String,
-    extension: String,
+    id: string,
+    name: string,
+    extension: string,
+    content: string,
     isSaved: boolean,
 }

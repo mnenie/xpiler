@@ -2,17 +2,18 @@ import type * as monaco from "monaco-editor";
 import * as vue_demi from "vue-demi";
 import * as monaco_editor from "monaco-editor";
 import type { Tab } from "~/types/editor.inteface";
+import type { IFile } from "~/types/folder.interface";
+import { useEditorStore } from "#imports";
 
 type Nullable<T> = T | null;
 
 export default function useEditor(
-  monacoRef: vue_demi.ShallowRef<Nullable<typeof monaco_editor>>,
-  files: Ref<Tab[]>,
-  modelMap: Map<string, monaco.editor.ITextModel>,
+  monacoRef: vue_demi.ShallowRef<Nullable<typeof monaco_editor>>
 ) {
+  const editorStore = useEditorStore();
   const editorRef = shallowRef<monaco.editor.IEditor>();
   const content = ref("");
-  const activeFile = ref<Tab>();
+  const activeFile = ref<IFile>();
 
   const onLoad = (editor: monaco.editor.IEditor) => {
     const monaco = monacoRef.value;
@@ -21,44 +22,46 @@ export default function useEditor(
     monaco.editor!.defineTheme("theme", theme);
     monaco.editor!.setTheme("theme");
 
-    files.value = [...files.value].map((file) => {
-      content.value = `console.log('this is ${file.path}')`;
-      const uri = monaco.Uri.parse(file.path);
+    editorStore.activeTabs = [...editorStore.activeTabs].map((file) => {
+      content.value = file.content;
+      const uri = monaco.Uri.parse(`${file.name}.${file.extension}`);
       const model = monaco.editor.createModel(
         content.value,
-        file.path.endsWith(".ts") ? "typescript" : "javascript",
+        file.extension == 'ts' ? "typescript" : "javascript",
         uri
       );
-      modelMap.set(file.path, model);
+      editorStore.modelMap.set(file.id, model);
       model.onDidChangeContent(() => {
-        modelMap.set(
-          file.path,
+        editorStore.modelMap.set(
+          file.id,
           editorRef.value!.getModel() as monaco.editor.ITextModel
         );
       });
-      return {
-        path: file.path,
-      } as Tab;
+      return file;
     });
     editorRef.value = editor
-    switchTab(files.value.at(0)!);
+    editorRef.value?.setModel(null);
   };
 
-  const switchTab = (to: Tab) => {
+  // TODO: display file content when switching tabs
+  const switchTab = (to: IFile) => {
     activeFile.value = to;
-    const activeModel = modelMap.get(to.path);
+    const activeModel = editorStore.modelMap.get(to.id);
+    console.log(activeModel)
     if (activeModel) {
       editorRef.value?.setModel(activeModel);
       content.value = activeModel.getValue();
+    } else {
+      content.value = `Can't find file with id ${to.id}` // debug
     }
   };
+
 
   return {
     editorRef,
     onLoad,
     switchTab,
     activeFile,
-    content,
-    modelMap,
+    content
   };
 }
