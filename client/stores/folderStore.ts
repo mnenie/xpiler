@@ -13,7 +13,7 @@ export const useFolder = defineStore('folder', () => {
         isFolded: false
     } as IFolder)
 
-    const createFolder = (parentId: String, folder : IFolder, layer: number) => {
+    const createFolder = (parentId: string, folder : IFolder, layer: number) => {
         if (parentId == folder.id){
             folder.folders.push({
                 id: globalId.toString(),
@@ -31,10 +31,11 @@ export const useFolder = defineStore('folder', () => {
         folder.folders.forEach(f => createFolder(folder.id, f, layer + 1));
     }
 
-    const createFile = (parentId: String, folder : IFolder, layer: number) => {
+    const createFile = (parentId: string, folder : IFolder, layer: number) => {
         if (parentId == folder.id){
             folder.files.push({
                 id: globalId.toString(),
+                content: "text",
                 name: "index",
                 extension: "js",
                 isSaved: true,
@@ -45,8 +46,31 @@ export const useFolder = defineStore('folder', () => {
         }
         folder.folders.forEach(f => createFile(parentId, f, layer + 1));
     }
+
+    const renameFolder = (name: string, id : string, folder: IFolder) => {
+        folder.folders.forEach(f => {
+            if (f.id == id){
+                f.name = name;
+                return;
+            }
+            renameFolder(name, id, f);
+        });
+    }
+
+    const renameFile = (name: string, id : string, folder: IFolder) => {
+        folder.files.forEach(f => {
+            if (f.id == id){
+                const fullname = name.split('.');
+                const extension = fullname.pop();
+                f.name = fullname.join('.');
+                f.extension = extension || "";
+                return;
+            }
+        });
+        folder.folders.forEach(f => renameFile(name, id, f));
+    }
     
-    const deleteFolder = (id: String, folder : IFolder) => {
+    const deleteFolder = (id: string, folder : IFolder) => {
         if (folder.folders.some(f => f.id == id)) {
             folder.folders = folder.folders.filter(f => f.id !== id);
             return;
@@ -54,7 +78,7 @@ export const useFolder = defineStore('folder', () => {
         folder.folders.forEach(f => deleteFolder(id, f));
     }
 
-    const deleteFile = (id: String, folder : IFolder) => {
+    const deleteFile = (id: string, folder : IFolder) => {
         if (folder.files.some(f => f.id == id)) {
             folder.files = folder.files.filter(f => f.id !== id);
             return;
@@ -62,12 +86,13 @@ export const useFolder = defineStore('folder', () => {
         folder.folders.forEach(f => deleteFile(id, f));
     }
 
-
     return {
         dir,
         // methods
         createFolder,
         createFile,
+        renameFolder,
+        renameFile,
         deleteFolder,
         deleteFile
     }
