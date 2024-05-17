@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { useColorMode } from '@vueuse/core';
+import type { IFile, IFolder } from '~/types/folder.interface';
 
 const folderStore = useFolder();
+const edtorStore = useEditorStore();
 
-const props = defineProps(["item"]);
+const props = defineProps<{
+  item: IFolder
+}>();
 const hover = ref(false);
 const renaming = ref(false);
 let newName = props.item.name;
@@ -11,6 +15,13 @@ let newName = props.item.name;
 const identStyle = reactive({
   paddingLeft: `${props.item.layer * 14 + 14}px`,
 });
+
+const clearFolder = (folder : IFolder) => {
+  if (folder.folders.length !== 0) {
+    folder.folders.forEach(f => clearFolder(f))
+  }
+  folder.files.forEach(f => edtorStore.removeFile(f.id))
+}
 
 const mode = useColorMode();
 </script>
@@ -66,7 +77,7 @@ const mode = useColorMode();
           "
         />
         <iconsTrashbin
-          @click.stop="folderStore.deleteFolder(props.item.id, folderStore.dir)"
+          @click.stop="clearFolder(props.item); folderStore.deleteFolder(props.item.id, folderStore.dir);"
         />
         <iconsPen @click.stop="renaming = true" />
       </div>
@@ -75,7 +86,7 @@ const mode = useColorMode();
       <SidebarFolder
         v-if="props.item.folders.length > 0"
         v-for="folder in item.folders"
-        :key="folder"
+        :key="folder.id"
         :item="folder"
       />
       <SidebarFile

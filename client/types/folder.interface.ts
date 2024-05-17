@@ -4,7 +4,7 @@ export interface IFolder {
     files: Array<IFile>,
     folders: Array<IFolder>,
     parentId: String,
-    layer: Number,
+    layer: number,
     isFolded: boolean
 }
 
