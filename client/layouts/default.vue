@@ -10,7 +10,7 @@ onMounted(() => {
 <template>
   <div class="grid-container h-dvh w-full">
     <LayoutHeader class="header" />
-    <LayoutSidebarExplorer class="sidebar" />
+    <LayoutSidebar class="sidebar" />
     <div class="slot">
       <slot />
     </div>
