@@ -87,6 +87,14 @@ export const useFolder = defineStore("folder", () => {
     if (folder.folders.length === 0) navigateTo(COMPILER_ROUTE);
   };
 
+  const toggleFold = (id : string, folder : IFolder) => {
+    if (folder.id == id) {
+      folder.isFolded = !folder.isFolded;
+      return;
+    }
+    folder.folders.forEach(f => toggleFold(id, f))
+  }
+
   return {
     dir,
     // methods
@@ -96,5 +104,6 @@ export const useFolder = defineStore("folder", () => {
     renameFile,
     deleteFolder,
     deleteFile,
+    toggleFold
   };
 });

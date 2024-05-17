@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useColorMode } from '@vueuse/core';
+import { LucideFolderOpen } from 'lucide-vue-next';
 import type { IFile, IFolder } from '~/types/folder.interface';
 
 const folderStore = useFolder();
@@ -8,8 +9,11 @@ const edtorStore = useEditorStore();
 const props = defineProps<{
   item: IFolder
 }>();
+
 const hover = ref(false);
 const renaming = ref(false);
+const folded = ref(props.item.isFolded);
+
 let newName = props.item.name;
 
 const identStyle = reactive({
@@ -27,7 +31,7 @@ const mode = useColorMode();
 </script>
 
 <template>
-  <div>
+  <div @click.stop="folderStore.toggleFold(props.item.id, folderStore.dir); folded = !folded">
     <div
       @mouseenter="hover = true"
       @mouseleave="hover = false"
@@ -37,7 +41,8 @@ const mode = useColorMode();
       <div
         class="flex flex-row space-x-2 items-center cursor-pointer basis-4/5"
       >
-        <iconsFolderIcon :class="mode === 'dark' ? 'text-zinc-100' : ''" />
+        <iconsFolderIcon v-if="folded" :class="mode === 'dark' ? 'text-zinc-100' : ''" />
+        <iconsFolderOpenIcon v-else :class="mode === 'dark' ? 'text-zinc-100' : ''" />
         <!-- debug outputs -->
         <p v-if="!renaming" class="text-[13px] md:text-[13px] 2xl:text-[14px] dark:text-zinc-300">
           {{ props.item.name }}
@@ -82,7 +87,7 @@ const mode = useColorMode();
         <iconsPen @click.stop="renaming = true" />
       </div>
     </div>
-    <div>
+    <div v-if="!folded">
       <SidebarFolder
         v-if="props.item.folders.length > 0"
         v-for="folder in item.folders"
