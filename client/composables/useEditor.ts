@@ -3,6 +3,8 @@ import * as vue_demi from "vue-demi";
 import * as monaco_editor from "monaco-editor";
 import type { IFile } from "~/types/folder.interface";
 import { useColorMode } from "@vueuse/core";
+import themeDark from "~/utils/theme-dark";
+import themeLight from "~/utils/theme-light";
 
 type Nullable<T> = T | null;
 const mode = useColorMode();
@@ -20,8 +22,9 @@ export default function useEditor(
     const monaco = monacoRef.value;
     if (!monaco) return;
 
-    monaco.editor!.defineTheme("theme", theme);
-    monaco.editor!.setTheme(mode.value === "light" ? "vs" : "theme");
+    monaco.editor!.defineTheme("theme-dark", themeDark);
+    monaco.editor!.defineTheme("theme-light", themeLight);
+    monaco.editor!.setTheme(mode.value === "light" ? "theme-light" : "theme-dark");
 
     files = [...files].map((file) => {
       content.value = file.content;
@@ -61,8 +64,9 @@ export default function useEditor(
   };
 
   watch(() => mode.value, () => {
-    monacoRef.value?.editor!.defineTheme("theme", theme);
-    monacoRef.value?.editor!.setTheme(mode.value === "light" ? "vs" : "theme");
+    monacoRef.value?.editor!.defineTheme("theme-dark", themeDark);
+    monacoRef.value?.editor!.defineTheme("theme-light", themeLight);
+    monacoRef.value?.editor!.setTheme(mode.value === "light" ? "theme-light" : "theme-dark");
   });
 
   return {
