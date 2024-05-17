@@ -15,15 +15,16 @@ export const useAuthStore = defineStore("auth", () => {
         email: response?.user.email!,
         photoURL: response?.user.photoURL!,
       };
+      //@ts-ignore
       const creds = await onLogin({
         Gitid: user.value.Gitid,
         email: user.value.email,
         photoURL: user.value.photoURL!,
       });
-
       token.value = creds.data.token;
+      console.log(token.value);
     } catch (err: any) {
-      throw new Error(err);
+      console.log(err);
     }
   };
 
@@ -38,7 +39,7 @@ export const useAuthStore = defineStore("auth", () => {
 
   setTimeout(() => {
     isLoading.value = false;
-  }, 1000)
+  }, 2000)
 
   const logout = () => {
     user.value = null;

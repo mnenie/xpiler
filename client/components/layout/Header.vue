@@ -13,8 +13,9 @@ import { useColorMode } from "@vueuse/core";
 import Switch from "~/components/ui/switch/Switch.vue";
 import { Skeleton } from "@/components/ui/skeleton";
 
+const { store, system } = useColorMode();
+
 const isShare = ref<boolean>(false);
-const { store } = useColorMode();
 const modelTheme = ref(false);
 const color = computed(() => {
   return modelTheme.value == false ? "rgb(228 228 231)" : "rgb(39 39 42)";
@@ -44,6 +45,12 @@ const { user, isLoading } = storeToRefs(authStore);
 const onEvent = async () => {
   user.value ? authStore.logout() : await authStore.oAuth2Github();
 };
+
+onMounted(() => {
+  store.value === "dark"
+    ? (modelTheme.value = false)
+    : (modelTheme.value = true);
+});
 </script>
 
 <template>
@@ -57,7 +64,7 @@ const onEvent = async () => {
   >
     <div class="flex items-center space-x-2 dark:text-zinc-200 text-zinc-900">
       <Braces :size="18" />
-      <span class="lg:text-[17px] md:text-[16px] font-medium">Xpiler</span>
+      <span class="2xl:text-[17px] md:text-[15px] font-medium">Xpiler</span>
     </div>
     <div class="gap-3 flex items-center">
       <UiButton
@@ -68,9 +75,7 @@ const onEvent = async () => {
       >
         <component
           :is="isShare ? Link2Off : Link"
-          :color="
-            modelTheme === false ? 'rgb(228 228 231)' : 'rgb(107 114 128)'
-          "
+          :color="system === 'dark' ? 'rgb(228 228 231)' : 'rgb(107 114 128)'"
           :size="14"
         />
         <span class="text-sm">{{ isShare ? "Unshare" : "Share" }}</span>

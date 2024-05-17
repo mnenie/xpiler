@@ -25,7 +25,7 @@ const handleSubmit = async () => {
     </SheetTrigger>
     <SheetContent class="h-full flex flex-col justify-between">
       <UiSheetHeader>
-        <UiSheetTitle> Ai CodeMind </UiSheetTitle>
+        <UiSheetTitle> Xpiler Ai Bot </UiSheetTitle>
       </UiSheetHeader>
       <BotContent :messages="messages" :is-pending="isPending" />
       <BotMessage @on-submit="handleSubmit" v-model="model" />

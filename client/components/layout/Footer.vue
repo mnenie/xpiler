@@ -1,7 +1,19 @@
 <script setup lang="ts">
 import { cn } from "~/lib/utils";
-import { ListTree, MessagesSquare, SquareTerminal, Bot } from "lucide-vue-next";
-import Badge from "../ui/badge/Badge.vue";
+import {
+  ListTree,
+  MessagesSquare,
+  SquareTerminal,
+  Bot,
+  PenLine,
+} from "lucide-vue-next";
+
+const { symbols } = storeToRefs(useEditorStore());
+
+const isNoteVisible = ref(false);
+const toggleNote = () => {
+  isNoteVisible.value = !isNoteVisible.value;
+};
 </script>
 
 <template>
@@ -13,34 +25,46 @@ import Badge from "../ui/badge/Badge.vue";
       ])
     "
   >
-    <div class="flex items-center gap-4">
-      <ListTree class="cursor-pointer" color="rgb(107 114 128)" :size="16" />
-      <MessagesSquare
-        class="mt-[2.5px] cursor-pointer"
-        color="rgb(107 114 128)"
-        :size="16"
-      />
+    <div class="flex items-center gap-4 text-zinc-500 dark:text-zinc-500">
+      <ListTree class="cursor-pointer" :size="16" />
+      <MessagesSquare class="mt-[2.5px] cursor-pointer" :size="16" />
     </div>
     <div class="flex items-center gap-4">
       <div class="flex items-center gap-4">
         <div class="flex items-center gap-2 text-xs font-medium mr-2">
           <span class="">👉 Press </span>
-          <Badge variant="secondary">alt + q</Badge>
+          <UiBadge variant="secondary">alt + q</UiBadge>
           <span>for AI auto-completions</span>
         </div>
-        <span class="text-xs">Symbols: 20</span>
+        <span class="text-xs">
+          Symbols: {{ symbols ? symbols.split("").length : 0 }}
+        </span>
         <span class="text-xs">TypeScript</span>
       </div>
       <div class="flex items-center gap-3">
+        <PenLine
+          @click="toggleNote"
+          :class="
+            cn('cursor-pointer', [
+              isNoteVisible
+                ? 'text-blue-500 dark:text-blue-300'
+                : 'text-zinc-500 dark:text-zinc-500',
+            ])
+          "
+          :size="15"
+        />
         <BotChat>
-          <Bot class="cursor-pointer" color="rgb(107 114 128)" :size="15" />
+          <Bot
+            class="cursor-pointer text-zinc-500 dark:text-zinc-500"
+            :size="15"
+          />
         </BotChat>
         <SquareTerminal
-          class="cursor-pointer"
-          color="rgb(59 130 246)"
+          class="cursor-pointer text-blue-500 dark:text-blue-300"
           :size="15"
         />
       </div>
     </div>
+    <NoteContainer v-show="isNoteVisible" />
   </div>
 </template>

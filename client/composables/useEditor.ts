@@ -22,6 +22,7 @@ export default function useEditor(
   const monacoInstance = shallowRef<Nullable<typeof monaco_editor>>(null);
 
   const { onAutoCompletion } = useAutoCompletion(text, content);
+  const { symbols } = storeToRefs(useEditorStore());
 
   const onLoad = (editor: monaco.editor.IEditor) => {
     monacoInstance.value = monacoRef.value;
@@ -57,7 +58,7 @@ export default function useEditor(
 
     editorRef.value = editor;
 
-    aiMenuConfig(monacoInstance.value)
+    aiMenuConfig(monacoInstance.value);
 
     if (files.length === 1) {
       navigateTo(HOME_ROUTE);
@@ -93,6 +94,13 @@ export default function useEditor(
       monacoRef.value?.editor!.setTheme(
         mode.value === "light" ? "theme-light" : "theme-dark"
       );
+    }
+  );
+
+  watch(
+    () => content.value,
+    () => {
+      symbols.value = content.value;
     }
   );
   return {

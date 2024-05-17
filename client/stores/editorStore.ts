@@ -5,7 +5,7 @@ import { aboutFile } from "~/mocks/about.mock";
 
 export const useEditorStore = defineStore("editor", () => {
   const activeTabs = ref<IFile[]>([] as IFile[]);
-  const modelMap = new Map<string, monaco.editor.ITextModel>();
+  const symbols = ref<string>('');
 
   const toggleFile = (file: IFile) => {
     const index = activeTabs.value.findIndex((f) => f.id === file.id);
@@ -32,6 +32,7 @@ export const useEditorStore = defineStore("editor", () => {
 
   return {
     activeTabs,
+    symbols,
     // methods
     toggleFile,
     removeFile,

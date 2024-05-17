@@ -10,7 +10,7 @@ export const badgeVariants = cva(
         default:
           'border-transparent bg-gray-900 text-gray-50 shadow hover:bg-gray-900/80 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/80',
         secondary:
-          'border-transparent bg-zinc-100 text-zinc-900 hover:bg-zinc-100/80 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-800/80',
+          'border-transparent bg-zinc-100 text-zinc-900 hover:bg-zinc-100/80 dark:bg-zinc-700/60 dark:text-zinc-100 dark:hover:bg-zinc-800/80',
         destructive:
           'border-transparent bg-red-500 text-gray-50 shadow hover:bg-red-500/80 dark:bg-red-900 dark:text-gray-50 dark:hover:bg-red-900/80',
         outline: 'text-gray-950 dark:text-gray-50',
