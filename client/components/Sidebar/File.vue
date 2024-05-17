@@ -49,7 +49,7 @@ const isActiveRoute = computed(() => {
       <div @click.stop="editorStore.toggleFile(item)" @mouseenter="hover = true" @mouseleave="hover = false"
         :style="identStyle"
         :class="cn('flex flex-row my-1 py-1', { 'bg-zinc-200 w-full dark:bg-zinc-700/40': isActiveRoute(item.id) })"
-        class="hover:bg-slate-300 dark:hover:bg-zinc-700/40">
+        class="hover:bg-zinc-200/60 dark:hover:bg-zinc-700/40">
         <div class="flex flex-row basis-4/5 space-x-2 items-center cursor-pointer px-1">
           <iconsFileIcon :extension="props.item.extension" />
           <!-- debug outputs -->
@@ -60,7 +60,7 @@ const isActiveRoute = computed(() => {
             folderStore.renameFile(newName, props.item.id, folderStore.dir);
           renaming = false;
           ">
-            <input class="bg-slate-200 outline-none w-4/5" type="text" v-model="newName" />
+            <input class="bg-zinc-200 dark:bg-zinc-700/70 dark:text-zinc-200 rounded-sm outline-none w-4/5" type="text" v-model="newName" />
             <input type="submit" hidden />
           </form>
         </div>

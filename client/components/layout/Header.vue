@@ -42,7 +42,7 @@ const toggleTheme = () => {
   >
     <div class="flex items-center space-x-2 dark:text-zinc-200 text-zinc-900">
       <Braces :size="18" />
-      <span class="text-base font-medium">Xpiler</span>
+      <span class="lg:text-lg md:text-[16px] font-medium">Xpiler</span>
     </div>
     <div class="gap-3 flex items-center">
       <UiButton

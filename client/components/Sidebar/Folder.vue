@@ -49,7 +49,7 @@ const mode = useColorMode();
     <ContextMenuTrigger>
       <div @click.stop="folderStore.toggleFold(props.item.id, folderStore.dir); folded = !folded">
         <div @mouseenter="hover = true" @mouseleave="hover = false" :style="identStyle"
-          class="flex flex-row hover:bg-slate-300 dark:hover:bg-zinc-700/40 my-1 py-1">
+          class="flex flex-row hover:bg-zinc-200/60 dark:hover:bg-zinc-700/40 my-1 py-1">
           <div class="flex flex-row space-x-2 items-center cursor-pointer basis-4/5">
             <iconsFolderIcon v-if="folded" :class="mode === 'dark' ? 'text-zinc-100' : ''" />
             <iconsFolderOpenIcon v-else :class="mode === 'dark' ? 'text-zinc-100' : ''" />
@@ -61,7 +61,7 @@ const mode = useColorMode();
               folderStore.renameFolder(newName, props.item.id, folderStore.dir);
               renaming = false;
             ">
-              <input class="bg-slate-200 outline-none w-4/5" type="text" v-model="newName" />
+              <input class="bg-zinc-200 dark:bg-zinc-700/70 dark:text-zinc-200 outline-none w-4/5 rounded-sm" type="text" v-model="newName" />
               <input type="submit" hidden />
             </form>
           </div>
