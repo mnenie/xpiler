@@ -5,6 +5,9 @@
 .view-line {
   border: none !important;
 }
+span .mtk23{
+  color: #444745 !important;
+}
 
 body {
   @apply dark:bg-[#222224];

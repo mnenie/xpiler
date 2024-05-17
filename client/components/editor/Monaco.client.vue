@@ -1,18 +1,20 @@
 <script setup lang="ts">
 import { VueMonacoEditor, useMonaco } from "@guolao/vue-monaco-editor";
-import type * as monaco from "monaco-editor";
+import * as monaco from "monaco-editor";
 
 const modelMap = new Map<string, monaco.editor.ITextModel>();
 const editorStore = useEditorStore();
 const { activeTabs } = storeToRefs(editorStore);
 const output = ref("");
+const text = ref("");
 
 const { monacoRef } = useMonaco();
 
-const { editorRef, onLoad, content, activeFile, switchTab } = useEditor(
+const { editorRef, onLoad, content, activeFile, switchTab, aiMenuConfig, monacoInstance } = useEditor(
   monacoRef,
   editorStore.activeTabs,
-  modelMap
+  modelMap,
+  text
 );
 
 const language = ref("typescript");

@@ -8,7 +8,9 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      API_CODE: process.env.API_CODE
+      API_CODE: process.env.API_CODE,
+      API_XPILER_BACK: process.env.API_XPILER_BACK,
+      FIREBASE_API_KEY: process.env.FIREBASE_API_KEY
     },
     YANDEX_API_KEY: process.env.YANDEX_API_KEY,
     YANDEX_FOLDER_ID: process.env.YANDEX_FOLDER_ID,

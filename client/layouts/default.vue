@@ -2,8 +2,11 @@
 import { useColorMode } from "@vueuse/core";
 const { store } = useColorMode();
 
-onMounted(() => {
+const authStore = useAuthStore()
+
+onMounted(async () => {
   store.value = "dark";
+  await authStore.getCurrentUser()
 })
 </script>
 

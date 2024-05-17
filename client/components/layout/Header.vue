@@ -1,9 +1,17 @@
 <script setup lang="ts">
 import { cn } from "~/lib/utils";
-import { ChevronDown, Link, Link2Off, Moon, Sun, Braces } from "lucide-vue-next";
+import {
+  ChevronDown,
+  Link,
+  Link2Off,
+  Moon,
+  Sun,
+  Braces,
+} from "lucide-vue-next";
 import { toast } from "vue-sonner";
 import { useColorMode } from "@vueuse/core";
 import Switch from "~/components/ui/switch/Switch.vue";
+import { Skeleton } from '@/components/ui/skeleton'
 
 const isShare = ref<boolean>(false);
 const { store } = useColorMode();
@@ -29,6 +37,13 @@ const toggleTheme = () => {
   modelTheme.value != modelTheme.value;
   modelTheme.value === false ? (store.value = "dark") : (store.value = "light");
 };
+
+const authStore = useAuthStore();
+const { user, isLoading } = storeToRefs(authStore);
+
+const onEvent = async () => {
+  user.value ? authStore.logout() : await authStore.oAuth2Github();
+};
 </script>
 
 <template>
@@ -53,7 +68,9 @@ const toggleTheme = () => {
       >
         <component
           :is="isShare ? Link2Off : Link"
-          :color="modelTheme === false ? 'rgb(228 228 231)' : 'rgb(107 114 128)'"
+          :color="
+            modelTheme === false ? 'rgb(228 228 231)' : 'rgb(107 114 128)'
+          "
           :size="14"
         />
         <span class="text-sm">{{ isShare ? "Unshare" : "Share" }}</span>
@@ -67,13 +84,20 @@ const toggleTheme = () => {
         <Sun v-else :size="14" :color="color" />
       </Switch>
       <div class="gap-0.5 flex items-center">
-        <UiAvatar class="h-6 w-6">
+        <UiAvatar v-if="!isLoading" class="h-6 w-6">
           <UiAvatarImage
             class="object-cover"
-            src="https://www.shadcn-vue.com/avatars/02.png"
+            :src="
+              user
+                ? user.photoURL!
+                : 'https://www.shadcn-vue.com/avatars/02.png'
+            "
           />
-          <UiAvatarFallback> al </UiAvatarFallback>
+          <UiAvatarFallback>
+            {{ user && user.email.split("").splice(0, 2) }}
+          </UiAvatarFallback>
         </UiAvatar>
+        <Skeleton v-else class="h-6 w-6 rounded-full" />
         <UiDropdownMenu>
           <UiDropdownMenuTrigger as-child>
             <ChevronDown
@@ -83,13 +107,13 @@ const toggleTheme = () => {
             />
           </UiDropdownMenuTrigger>
           <UiDropdownMenuContent>
-            <UiDropdownMenuLabel class="text-[13px]"
-              >user@gmail.com</UiDropdownMenuLabel
-            >
+            <UiDropdownMenuLabel class="text-[13px]">{{
+              user ? user.email : "unknown user"
+            }}</UiDropdownMenuLabel>
             <UiDropdownMenuSeparator />
-            <UiDropdownMenuItem class="text-[13px]"
-              >Sign Out</UiDropdownMenuItem
-            >
+            <UiDropdownMenuItem @click="onEvent" class="text-[13px]">{{
+              user ? "Sign Out" : "Log in"
+            }}</UiDropdownMenuItem>
           </UiDropdownMenuContent>
         </UiDropdownMenu>
       </div>
