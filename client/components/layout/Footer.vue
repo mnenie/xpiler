@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { cn } from "~/lib/utils";
 import { ListTree, MessagesSquare, SquareTerminal, Bot } from "lucide-vue-next";
+import Badge from "../ui/badge/Badge.vue";
 </script>
 
 <template>
@@ -20,10 +21,15 @@ import { ListTree, MessagesSquare, SquareTerminal, Bot } from "lucide-vue-next";
         :size="16"
       />
     </div>
-    <div class="flex items-center gap-6">
+    <div class="flex items-center gap-4">
       <div class="flex items-center gap-4">
-        <span class="text-xs">String: 20</span>
-        <span class="text-xs font-medium">TypeScript</span>
+        <div class="flex items-center gap-2 text-xs font-medium mr-2">
+          <span class="">👉 Press </span>
+          <Badge variant="secondary">alt + q</Badge>
+          <span>for AI auto-completions</span>
+        </div>
+        <span class="text-xs">Symbols: 20</span>
+        <span class="text-xs">TypeScript</span>
       </div>
       <div class="flex items-center gap-3">
         <BotChat>

@@ -11,7 +11,7 @@ import {
 import { toast } from "vue-sonner";
 import { useColorMode } from "@vueuse/core";
 import Switch from "~/components/ui/switch/Switch.vue";
-import { Skeleton } from '@/components/ui/skeleton'
+import { Skeleton } from "@/components/ui/skeleton";
 
 const isShare = ref<boolean>(false);
 const { store } = useColorMode();
@@ -57,7 +57,7 @@ const onEvent = async () => {
   >
     <div class="flex items-center space-x-2 dark:text-zinc-200 text-zinc-900">
       <Braces :size="18" />
-      <span class="lg:text-lg md:text-[16px] font-medium">Xpiler</span>
+      <span class="lg:text-[17px] md:text-[16px] font-medium">Xpiler</span>
     </div>
     <div class="gap-3 flex items-center">
       <UiButton
@@ -94,7 +94,7 @@ const onEvent = async () => {
             "
           />
           <UiAvatarFallback>
-            {{ user && user.email.split("").splice(0, 2) }}
+            {{ user && user.email.split("").splice(0, 2).join("") }}
           </UiAvatarFallback>
         </UiAvatar>
         <Skeleton v-else class="h-6 w-6 rounded-full" />

@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { useColorMode } from "@vueuse/core";
+
 const { store } = useColorMode();
 
-const authStore = useAuthStore()
+const authStore = useAuthStore();
 
 onMounted(async () => {
   store.value = "dark";
-  await authStore.getCurrentUser()
-})
+  await authStore.getCurrentUser();
+});
 </script>
 
 <template>

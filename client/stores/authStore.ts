@@ -3,7 +3,7 @@ import type { UserAuth, UserType } from "~/types/user.inteface";
 export const useAuthStore = defineStore("auth", () => {
   const user = ref<null | UserType>(null);
   const token = useCookie("token");
-  const isLoading = ref(false);
+  const isLoading = ref(true);
 
   const { onGithubLogin, onLogin, getUser } = useAuth();
 
@@ -28,15 +28,17 @@ export const useAuthStore = defineStore("auth", () => {
   };
 
   const getCurrentUser = async () => {
-    isLoading.value = true;
     try {
       const response = await getUser();
       user.value = response.data;
-      isLoading.value = false;
     } catch (err) {
       console.log(err);
     }
   };
+
+  setTimeout(() => {
+    isLoading.value = false;
+  }, 1000)
 
   const logout = () => {
     user.value = null;
