@@ -71,11 +71,11 @@ onMounted(() => {
         @click="toggleShare"
         size="sm"
         variant="secondary"
-        class="flex h-7 items-center gap-2"
+        class="flex h-7 items-center gap-2 "
       >
         <component
           :is="isShare ? Link2Off : Link"
-          :color="system === 'dark' ? 'rgb(228 228 231)' : 'rgb(107 114 128)'"
+          class="dark:text-zinc-200 text-zinc-500"
           :size="14"
         />
         <span class="text-sm">{{ isShare ? "Unshare" : "Share" }}</span>
