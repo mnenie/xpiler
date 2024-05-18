@@ -41,6 +41,10 @@ const isActiveRoute = computed(() => {
     return route.params.id === targetRouteId;
   };
 });
+
+watch(() => props.item.extension, () => {
+  editorStore.extension = props.item.extension;
+})
 </script>
 
 <template>

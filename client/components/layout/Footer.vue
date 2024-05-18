@@ -8,7 +8,7 @@ import {
   PenLine,
 } from "lucide-vue-next";
 
-const { symbols } = storeToRefs(useEditorStore());
+const { symbols, extension } = storeToRefs(useEditorStore());
 
 const isNoteVisible = ref(false);
 const toggleNote = () => {
@@ -39,7 +39,7 @@ const toggleNote = () => {
         <span class="text-xs">
           Symbols: {{ symbols ? symbols.split("").length : 0 }}
         </span>
-        <span class="text-xs">TypeScript</span>
+        <span class="text-xs">{{ extension === 'ts' ? 'TypeScript' : 'JavaScript' }}</span>
       </div>
       <div class="flex items-center gap-3">
         <PenLine

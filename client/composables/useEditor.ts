@@ -22,7 +22,7 @@ export default function useEditor(
   const monacoInstance = shallowRef<Nullable<typeof monaco_editor>>(null);
 
   const { onAutoCompletion } = useAutoCompletion(text, content);
-  const { symbols } = storeToRefs(useEditorStore());
+  const { symbols, extension } = storeToRefs(useEditorStore());
 
   const onLoad = (editor: monaco.editor.IEditor) => {
     monacoInstance.value = monacoRef.value;
@@ -44,6 +44,7 @@ export default function useEditor(
         file.extension === "ts" ? "typescript" : "javascript",
         uri
       );
+      extension.value = file.extension
       modelMap.set(file.id, model);
       model.onDidChangeContent(() => {
         modelMap.set(
@@ -101,6 +102,13 @@ export default function useEditor(
     () => content.value,
     () => {
       symbols.value = content.value;
+    }
+  );
+
+  watch(
+    () => activeFile.value,
+    () => {
+      extension.value = activeFile.value?.extension!;
     }
   );
   return {

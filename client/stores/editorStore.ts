@@ -6,6 +6,7 @@ import { aboutFile } from "~/mocks/about.mock";
 export const useEditorStore = defineStore("editor", () => {
   const activeTabs = ref<IFile[]>([] as IFile[]);
   const symbols = ref<string>('');
+  const extension = ref<string>('');
 
   const toggleFile = (file: IFile) => {
     const index = activeTabs.value.findIndex((f) => f.id === file.id);
@@ -33,6 +34,7 @@ export const useEditorStore = defineStore("editor", () => {
   return {
     activeTabs,
     symbols,
+    extension,
     // methods
     toggleFile,
     removeFile,

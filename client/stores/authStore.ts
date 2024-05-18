@@ -10,19 +10,14 @@ export const useAuthStore = defineStore("auth", () => {
   const oAuth2Github = async () => {
     try {
       const response = await onGithubLogin();
-      user.value = {
+
+      const creds = await onLogin({
         Gitid: response?.user.uid!,
         email: response?.user.email!,
         photoURL: response?.user.photoURL!,
-      };
-      //@ts-ignore
-      const creds = await onLogin({
-        Gitid: user.value.Gitid,
-        email: user.value.email,
-        photoURL: user.value.photoURL!,
       });
+      user.value = creds.data;
       token.value = creds.data.token;
-      console.log(token.value);
     } catch (err: any) {
       console.log(err);
     }
