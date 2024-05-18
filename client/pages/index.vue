@@ -1,5 +1,11 @@
+<script setup lang="ts">
+definePageMeta({
+  layout: "welcome"
+})
+</script>
+
 <template>
-  <div class="h-full w-full">
-    <EditorMonaco />
+  <div>
+    <WelcomeAbout />
   </div>
 </template>

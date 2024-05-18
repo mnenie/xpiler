@@ -10,7 +10,7 @@ const text = ref("");
 
 const { monacoRef } = useMonaco();
 
-const { editorRef, onLoad, content, activeFile, switchTab, aiMenuConfig, monacoInstance } = useEditor(
+const { editorRef, onLoad, content, activeFile, switchTab } = useEditor(
   monacoRef,
   editorStore.activeTabs,
   modelMap,

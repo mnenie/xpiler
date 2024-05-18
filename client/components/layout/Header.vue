@@ -71,7 +71,7 @@ onMounted(() => {
         @click="toggleShare"
         size="sm"
         variant="secondary"
-        class="flex h-7 items-center gap-2 "
+        class="flex h-7 items-center gap-2"
       >
         <component
           :is="isShare ? Link2Off : Link"
@@ -119,6 +119,12 @@ onMounted(() => {
             <UiDropdownMenuItem @click="onEvent" class="text-[13px]">{{
               user ? "Sign Out" : "Log in"
             }}</UiDropdownMenuItem>
+            <UiDropdownMenuItem
+              @click="navigateTo(HOME_ROUTE)"
+              class="text-[13px]"
+            >
+              Go To Welcome
+            </UiDropdownMenuItem>
           </UiDropdownMenuContent>
         </UiDropdownMenu>
       </div>

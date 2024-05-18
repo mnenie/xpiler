@@ -62,7 +62,7 @@ export default function useEditor(
     aiMenuConfig(monacoInstance.value);
 
     if (files.length === 1) {
-      navigateTo(HOME_ROUTE);
+      navigateTo(COMPILER_ABOUT_ROUTE);
     }
   };
 
