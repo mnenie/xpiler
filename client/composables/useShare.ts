@@ -5,7 +5,7 @@ export default function useShare() {
   const route = useRoute();
 
   const toggleShare = () => {
-    isShare.value = !isShare.value;
+    isShare.value = true;
     if (isShare.value) {
       if (document) {
         navigator.clipboard.writeText(

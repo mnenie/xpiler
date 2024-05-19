@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import type { IFile } from "@/types/folder.interface";
-import type * as monaco from "monaco-editor";
 import { aboutFile } from "~/mocks/about.mock";
 
 export const useEditorStore = defineStore("editor", () => {

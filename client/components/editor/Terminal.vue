@@ -15,7 +15,9 @@ const mode = useColorMode();
     <div
       class="relative h-52 bg-white w-full owflow-hidden dark:bg-[#2a2a30] dark:text-zinc-200"
     >
-      <div class="flex w-full bg-zinc-100/60 border-t border-zinc-300 dark:bg-zinc-800 dark:border-[#3f3f45]">
+      <div
+        class="flex w-full bg-zinc-100/60 border-t border-zinc-300 dark:bg-zinc-800 dark:border-[#3f3f45]"
+      >
         <div
           class="flex items-center gap-2 px-4 py-0.5 bg-white border-r border-zinc-300 dark:border-[#3f3f45] text-[13px] font-medium dark:bg-[#2a2a30]"
         >
@@ -52,6 +54,12 @@ const mode = useColorMode();
           />
         </div>
       </div>
+      <!-- <div class="absolute bottom-4 right-14 flex flex-col items-center">
+        <span class="text-sm dark:text-zinc-200 mb-1 text-zinc-800">
+          Искусственный интелект, Чат бот, Блокнот и многое другое ....
+        </span>
+        <img src="/arrow-down.png" class="w-20 mt-1 ml-12" />
+      </div> -->
     </div>
   </div>
 </template>

@@ -9,6 +9,8 @@ export default function useCollaboration() {
   let provider: WebrtcProvider | null = null;
   let binding: MonacoBinding | null = null;
 
+//   const { isShare } = storeToRefs(useEditorStore());
+
   const route = useRoute();
   const onCollaboration = (
     editorRef: ShallowRef<monaco.editor.IStandaloneCodeEditor | undefined>
@@ -30,9 +32,9 @@ export default function useCollaboration() {
   });
 
   return {
-    onCollaboration,
     provider,
     binding,
     doc,
+    onCollaboration,
   };
 }

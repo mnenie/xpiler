@@ -3,7 +3,7 @@ import { cn } from "~/lib/utils";
 import {
   ChevronDown,
   Link,
-  Link2Off,
+  CheckCheck,
   Moon,
   Sun,
   Braces,
@@ -13,13 +13,12 @@ import Switch from "~/components/ui/switch/Switch.vue";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const { store, system } = useColorMode();
+const {isShare, toggleShare} = useShare()
 
 const modelTheme = ref(false);
 const color = computed(() => {
   return modelTheme.value == false ? "rgb(228 228 231)" : "rgb(39 39 42)";
 });
-
-const { isShare, toggleShare } = useShare();
 
 const toggleTheme = () => {
   modelTheme.value != modelTheme.value;
@@ -61,11 +60,11 @@ onMounted(() => {
         class="flex h-7 items-center gap-2"
       >
         <component
-          :is="isShare ? Link2Off : Link"
-          class="dark:text-zinc-200 text-zinc-500"
+          :is="Link"
+          class="dark:text-zinc-200 text-zinc-500" :class="isShare && 'dark:text-green-300 text-green-500'"
           :size="14"
         />
-        <span class="text-sm">{{ isShare ? "Unshare" : "Share" }}</span>
+        <span class="text-sm">{{ isShare ? 'Link is copied' : 'Share' }}</span>
       </UiButton>
       <Switch
         v-model:checked="modelTheme"
