@@ -13,7 +13,7 @@ import Switch from "~/components/ui/switch/Switch.vue";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const { store, system } = useColorMode();
-const {isShare, toggleShare} = useShare()
+const { isShare, toggleShare } = useShare();
 
 const modelTheme = ref(false);
 const color = computed(() => {
@@ -61,10 +61,10 @@ onMounted(() => {
       >
         <component
           :is="Link"
-          class="dark:text-zinc-200 text-zinc-500" :class="isShare && 'dark:text-green-300 text-green-500'"
+          :class="isShare ? 'dark:text-green-300 text-green-500' : 'dark:text-zinc-200 text-zinc-500'"
           :size="14"
         />
-        <span class="text-sm">{{ isShare ? 'Link is copied' : 'Share' }}</span>
+        <span class="text-sm">{{ isShare ? "Link is copied" : "Share" }}</span>
       </UiButton>
       <Switch
         v-model:checked="modelTheme"
