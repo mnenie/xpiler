@@ -1,5 +1,4 @@
 import type * as monaco from "monaco-editor";
-// import * as actions from "monaco-editor/esm/vs/platform/actions/common/actions";
 import * as vue_demi from "vue-demi";
 import * as monaco_editor from "monaco-editor";
 import type { IFile } from "~/types/folder.interface";
@@ -16,15 +15,17 @@ export default function useEditor(
   modelMap: Map<string, monaco.editor.ITextModel>,
   text: Ref<string>
 ) {
-  const editorRef = shallowRef<monaco.editor.IEditor>();
+  const editorRef = shallowRef<monaco.editor.IStandaloneCodeEditor>();
   const content = shallowRef("");
   const activeFile = shallowRef<IFile>();
   const monacoInstance = shallowRef<Nullable<typeof monaco_editor>>(null);
 
   const { onAutoCompletion } = useAutoCompletion(text, content);
   const { symbols, extension } = storeToRefs(useEditorStore());
+  const { onCollaboration } = useCollaboration();
 
-  const onLoad = (editor: monaco.editor.IEditor) => {
+  const onLoad = (editor: monaco.editor.IStandaloneCodeEditor) => {
+    editorRef.value = editor;
     monacoInstance.value = monacoRef.value;
     if (!monacoInstance.value) return;
 
@@ -44,7 +45,8 @@ export default function useEditor(
         file.extension === "ts" ? "typescript" : "javascript",
         uri
       );
-      extension.value = file.extension
+      extension.value = file.extension;
+
       modelMap.set(file.id, model);
       model.onDidChangeContent(() => {
         modelMap.set(
@@ -57,16 +59,15 @@ export default function useEditor(
       };
     });
 
-    editorRef.value = editor;
-
     aiMenuConfig(monacoInstance.value);
 
     if (files.length === 1) {
       navigateTo(COMPILER_ABOUT_ROUTE);
     }
+
+    onCollaboration(editorRef);
   };
 
-  // TODO: display file content when switching tabs
   const switchTab = (to: IFile) => {
     activeFile.value = to;
     const activeModel = modelMap.get(to.id);
@@ -74,6 +75,7 @@ export default function useEditor(
     if (activeModel) {
       editorRef.value?.setModel(activeModel);
       content.value = activeFile.value.content;
+      onCollaboration(editorRef);
     }
   };
 
@@ -111,6 +113,7 @@ export default function useEditor(
       extension.value = activeFile.value?.extension!;
     }
   );
+
   return {
     editorRef,
     onLoad,

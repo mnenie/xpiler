@@ -32,7 +32,11 @@
     "tailwindcss-animate": "^1.0.7",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2",
-    "vue-sonner": "^1.1.2"
+    "vue-sonner": "^1.1.2",
+    "y-monaco": "^0.1.5",
+    "y-webrtc": "^10.3.0",
+    "y-websocket": "^2.0.3",
+    "yjs": "^13.6.15"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.17.0",

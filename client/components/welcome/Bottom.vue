@@ -4,7 +4,7 @@ import { redirect } from "~/helpers/helperRedirect";
 
 <template>
   <footer class="border-t border-[#e4e4e766]/40 py-4 md:py-0 dark:bg-transparent absolute bottom-0 w-full">
-    <div class="container flex flex-col items-center justify-between gap-4 md:h-20 md:flex-row">
+    <div class="px-20 flex flex-col items-center justify-between gap-4 md:h-20 md:flex-row">
       <p class="text-balance text-center text-sm leading-loose text-zinc-950/60 md:text-left dark:text-zinc-200">
         <span class="font-medium">Xpiler</span> - code compiler for your tasks. The source code is available on
         <a

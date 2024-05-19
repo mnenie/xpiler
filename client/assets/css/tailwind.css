@@ -12,3 +12,20 @@ span .mtk23{
 body {
   @apply dark:bg-[#222224];
 }
+
+.yRemoteSelectionHead {
+  position: absolute;
+  border-left: orange solid 2px;
+  border-top: orange solid 2px;
+  border-bottom: orange solid 2px;
+  height: 100%;
+  box-sizing: border-box;
+}
+.yRemoteSelectionHead::after {
+  position: absolute;
+  content: ' ';
+  border: 3px solid orange;
+  border-radius: 4px;
+  left: -4px;
+  top: -5px;
+}

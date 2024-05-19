@@ -8,31 +8,18 @@ import {
   Sun,
   Braces,
 } from "lucide-vue-next";
-import { toast } from "vue-sonner";
 import { useColorMode } from "@vueuse/core";
 import Switch from "~/components/ui/switch/Switch.vue";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const { store, system } = useColorMode();
 
-const isShare = ref<boolean>(false);
 const modelTheme = ref(false);
 const color = computed(() => {
   return modelTheme.value == false ? "rgb(228 228 231)" : "rgb(39 39 42)";
 });
 
-const toggleShare = () => {
-  isShare.value = !isShare.value;
-  if (isShare.value) {
-    toast.success("Link has been copied", {
-      description: "Share the link with your team for collaborative work!",
-    });
-  } else {
-    toast.error("Session is suspended", {
-      description: "You work with code alone rn!",
-    });
-  }
-};
+const { isShare, toggleShare } = useShare();
 
 const toggleTheme = () => {
   modelTheme.value != modelTheme.value;
