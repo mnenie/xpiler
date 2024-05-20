@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { VueMonacoEditor, useMonaco } from "@guolao/vue-monaco-editor";
 import * as monaco from "monaco-editor";
-import * as Y from "yjs";
-import { WebrtcProvider } from "y-webrtc";
-import { MonacoBinding } from "y-monaco";
 
 const modelMap = new Map<string, monaco.editor.ITextModel>();
 const editorStore = useEditorStore();
@@ -19,8 +16,6 @@ const { editorRef, onLoad, content, activeFile, switchTab } = useEditor(
   modelMap,
   text
 );
-
-const route = useRoute();
 
 const language = ref("typescript");
 

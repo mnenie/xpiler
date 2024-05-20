@@ -14,6 +14,6 @@ export default defineNuxtConfig({
     },
     YANDEX_API_KEY: process.env.YANDEX_API_KEY,
     YANDEX_FOLDER_ID: process.env.YANDEX_FOLDER_ID,
-    YANDEX_OAUTH: process.env.YANDEX_OAUTH
-  }
+    YANDEX_OAUTH: process.env.YANDEX_OAUTH,
+  },
 });
