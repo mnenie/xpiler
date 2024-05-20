@@ -25,6 +25,7 @@
     "marked": "^12.0.2",
     "monaco-editor": "^0.48.0",
     "nuxt": "^3.11.2",
+    "peerjs": "^1.5.4",
     "pinia": "^2.1.7",
     "radix-vue": "^1.7.4",
     "shadcn-nuxt": "^0.10.4",

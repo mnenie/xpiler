@@ -5,7 +5,13 @@ import { SquareTerminal, CheckCheck } from "lucide-vue-next";
 const props = defineProps<{
   output: string;
   isPending: boolean;
+  analysis: string;
+  loadingAnalysis: boolean;
 }>();
+
+const date = new Date();
+
+console.log(props.analysis);
 
 const mode = useColorMode();
 </script>
@@ -13,7 +19,7 @@ const mode = useColorMode();
 <template #terminal>
   <div class="w-full">
     <div
-      class="relative h-52 bg-white w-full owflow-hidden dark:bg-[#2a2a30] dark:text-zinc-200"
+      class="relative h-56 bg-white w-full owflow-hidden dark:bg-[#2a2a30] dark:text-zinc-200"
     >
       <div
         class="flex w-full bg-zinc-100/60 border-t border-zinc-300 dark:bg-zinc-800 dark:border-[#3f3f45]"
@@ -29,15 +35,10 @@ const mode = useColorMode();
           Terminal
         </div>
       </div>
-      <div class="p-4 flex flex-col gap-4">
-        <span class="font-medium text-sm"
-          >Last login: Mon May 13 22:26:30 on ttys001</span
-        >
-        <div
-          v-if="output && !isPending"
-          class="flex flex-col gap-1 overflow-auto h-32"
-        >
-          <span :class="'text-green-700 text-sm'">Compiler 0.0.1</span>
+      <div class="p-4 flex flex-col gap-4 overflow-auto">
+        <span class="font-medium text-sm">Last login: {{ date }}</span>
+        <div v-if="output && !isPending" class="flex flex-col gap-1">
+          <span :class="'text-green-700 text-sm'">Xpiler 0.0.1</span>
           <div class="flex items-center gap-2">
             <CheckCheck
               class="cursor-pointer text-slate-50"
@@ -53,13 +54,17 @@ const mode = useColorMode();
             class="inline-flex h-1.5 w-1.5 animate-ping rounded-full bg-zinc-400"
           />
         </div>
+        <div v-if="!loadingAnalysis && analysis" class="flex items-center gap-3">
+          <span class="w-2 h-2 rounded-sm bg-orange-400"></span>
+          <span class="text-sm">{{ analysis }}</span>
+        </div>
+        <div v-if="loadingAnalysis" class="flex items-center gap-2">
+          <span class="text-sm">Analysis is loading</span>
+          <div
+            class="inline-flex h-1.5 w-1.5 animate-ping rounded-full bg-zinc-400"
+          />
+        </div>
       </div>
-      <!-- <div class="absolute bottom-4 right-14 flex flex-col items-center">
-        <span class="text-sm dark:text-zinc-200 mb-1 text-zinc-800">
-          Искусственный интелект, Чат бот, Блокнот и многое другое ....
-        </span>
-        <img src="/arrow-down.png" class="w-20 mt-1 ml-12" />
-      </div> -->
     </div>
   </div>
 </template>

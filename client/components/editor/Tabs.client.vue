@@ -11,6 +11,7 @@ const props = defineProps<{
 const emits = defineEmits<{
   (e: "switchTab", file: IFile): void;
   (e: "compileCode"): void;
+  (e: "onTesting"): void;
 }>();
 </script>
 

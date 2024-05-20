@@ -6,6 +6,8 @@ const modelMap = new Map<string, monaco.editor.ITextModel>();
 const editorStore = useEditorStore();
 const { activeTabs } = storeToRefs(editorStore);
 const output = ref("");
+const errorTerminal = ref("");
+const analysis = ref("");
 const text = ref("");
 
 const { monacoRef } = useMonaco();
@@ -20,10 +22,15 @@ const { editorRef, onLoad, content, activeFile, switchTab } = useEditor(
 const language = ref("typescript");
 
 const { executeCode, isPending } = useTerminal();
+const { useData, isPendingAnalysis } = useAnalysis();
 
 const compileCode = async () => {
   const { run: data } = await executeCode(language, content);
   output.value = data.output;
+  errorTerminal.value = data.stderr;
+  if(errorTerminal.value){
+    analysis.value = await useData(errorTerminal, content);
+  }
 };
 
 onUnmounted(() => {
@@ -48,6 +55,11 @@ onUnmounted(() => {
       :options="defaultOptions"
       @mount="onLoad"
     />
-    <EditorTerminal :output="output" :is-pending="isPending" />
+    <EditorTerminal
+      :output="output"
+      :is-pending="isPending"
+      :analysis="analysis"
+      :loading-analysis="isPendingAnalysis"
+    />
   </div>
 </template>
