@@ -1,7 +1,10 @@
 <script setup lang="ts">
-const folderStore = useFolder();
+const folderStore = useFolderStore();
+const { getFile, getFiles, postFile, delFile } = useFolder();
 
 const { dir } = storeToRefs(folderStore);
+
+
 </script>
 
 <template>

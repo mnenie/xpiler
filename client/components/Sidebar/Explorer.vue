@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/context-menu';
 
 
-const folderStore = useFolder();
+const folderStore = useFolderStore();
 
 </script>
 

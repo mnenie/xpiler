@@ -17,7 +17,7 @@ import {
   ContextMenuTrigger,
 } from '@/components/ui/context-menu';
 
-const folderStore = useFolder();
+const folderStore = useFolderStore();
 const edtorStore = useEditorStore();
 
 const props = defineProps<{

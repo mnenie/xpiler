@@ -1,5 +1,5 @@
 <script setup>
-const folderStore = useFolder();
+const folderStore = useFolderStore();
 </script>
 
 <template>

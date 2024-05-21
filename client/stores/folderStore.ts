@@ -1,7 +1,9 @@
 import { defineStore } from "pinia";
 import type { IFile, IFolder } from "@/types/folder.interface";
 
-export const useFolder = defineStore("folder", () => {
+export const useFolderStore = defineStore("folder", () => {
+  const { getFile, getFiles, postFile, delFile, patchFile,
+    getFolder, getFolders, postFolder, delFolder, patchFolder } = useFolder();
   let globalId = 0;
   let dir = ref({
     id: "0",
