@@ -56,7 +56,7 @@ watch(
             </UiAvatarFallback>
           </BotAvatar>
           <div
-            class="text-[14px] dark:text-zinc-200 md:text-[13px] 2xl:text-[14px]"
+            class="text-[14px] content_message dark:text-zinc-200 md:text-[13px] 2xl:text-[14px]"
             v-html="message && message.text"
           />
         </div>
@@ -64,7 +64,7 @@ watch(
           <BotAvatar>
             <UiAvatarFallback> ai </UiAvatarFallback>
           </BotAvatar>
-          <div class="flex items-center gap-2 text-[14px] dark:text-zinc-200 md:text-[13px] 2xl:text-[14px]">
+          <div class="flex items-center gap-2 text-[14px] content_message dark:text-zinc-200 md:text-[13px] 2xl:text-[14px]">
             <span>is thinking</span>
             <div class="inline-flex h-1.5 w-1.5 animate-ping rounded-full bg-zinc-200" />
           </div>
@@ -73,3 +73,11 @@ watch(
     </div>
   </div>
 </template>
+
+<style scoped>
+@media screen and (max-width: 520px) {
+  .content_message{
+    @apply text-sm
+  }
+}
+</style>

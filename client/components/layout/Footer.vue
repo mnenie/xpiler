@@ -7,8 +7,10 @@ import {
   Bot,
   PenLine,
 } from "lucide-vue-next";
+import { useWindowSize } from "@vueuse/core";
 
 const { symbols, extension } = storeToRefs(useEditorStore());
+const { width, height } = useWindowSize();
 
 const isNoteVisible = ref(false);
 const toggleNote = () => {
@@ -26,12 +28,18 @@ const toggleNote = () => {
     "
   >
     <div class="flex items-center gap-4 text-zinc-500 dark:text-zinc-500">
-      <ListTree class="cursor-pointer" :size="16" />
+      <SidebarSheetFixed v-if="width < 520">
+        <ListTree class="cursor-pointer" :size="16" />
+      </SidebarSheetFixed>
+      <ListTree v-else class="cursor-pointer" :size="16" />
       <MessagesSquare class="mt-[2.5px] cursor-pointer" :size="16" />
     </div>
     <div class="flex items-center gap-4">
       <div class="flex items-center gap-4">
-        <div class="flex items-center gap-2 text-xs font-medium mr-2">
+        <div
+          v-show="width >= 520"
+          class="flex items-center gap-2 text-xs font-medium mr-2"
+        >
           <span class="">👉 Press </span>
           <UiBadge variant="secondary">alt + q</UiBadge>
           <span>for AI auto-completions</span>
@@ -39,7 +47,9 @@ const toggleNote = () => {
         <span class="text-xs">
           Symbols: {{ symbols ? symbols.split("").length : 0 }}
         </span>
-        <span class="text-xs">{{ extension === 'ts' ? 'TypeScript' : 'JavaScript' }}</span>
+        <span class="text-xs">{{
+          extension === "ts" ? "TypeScript" : "JavaScript"
+        }}</span>
       </div>
       <div class="flex items-center gap-3">
         <PenLine

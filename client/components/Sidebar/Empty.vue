@@ -10,7 +10,7 @@ import { redirect } from "~/helpers/helperRedirect";
       </span>
     </div>
     <p
-      class="text-balance text-center text-sm leading-loose text-zinc-950/60 md:text-left dark:text-zinc-200"
+      class="text-balance text-sm leading-loose text-zinc-950/60 md:text-left dark:text-zinc-200"
     >
       <span class="font-medium">Xpiler</span> - code compiler for your tasks.
       The source code is available on
@@ -21,7 +21,7 @@ import { redirect } from "~/helpers/helperRedirect";
         Github
       </a>
     </p>
-    <div class="absolute bottom-20 pr-6 left-14">
+    <div class="absolute terminal_empty bottom-20 pr-6 left-14">
       <span class="text-sm dark:text-zinc-200 mb-4 text-zinc-800">
         Терминал, ИИ, Блокнот и многое другое ...
       </span>
@@ -29,3 +29,11 @@ import { redirect } from "~/helpers/helperRedirect";
     </div>
   </div>
 </template>
+
+<style scoped>
+@media screen and (max-width: 520px){
+  .terminal_empty {
+    @apply -bottom-96 left-28
+  }
+}
+</style>
