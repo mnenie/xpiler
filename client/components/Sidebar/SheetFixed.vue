@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const folderStore = useFolder();
+const folderStore = useFolderStore();
 const { dir } = storeToRefs(folderStore);
 
 const modal = ref(false)
