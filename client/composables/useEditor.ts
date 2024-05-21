@@ -10,6 +10,16 @@ import useRefactoring from "./useRefactoring";
 type Nullable<T> = T | null;
 const mode = useColorMode();
 
+const langMap = new Map<string, string>([
+  ["js", "javascript"],
+  ["ts", "typescript"],
+  ["cpp", "cpp"],
+  ["css", "css"],
+  ["html", "html"],
+  ["json", "json"],
+  ["py", "python"],
+])
+
 export default function useEditor(
   monacoRef: vue_demi.ShallowRef<Nullable<typeof monaco_editor>>,
   files: IFile[],
@@ -44,7 +54,7 @@ export default function useEditor(
       );
       const model = monacoInstance.value!.editor.createModel(
         content.value,
-        file.extension === "ts" ? "typescript" : "javascript",
+        file.extension === "py" ? "python" : "javascript",
         uri
       );
       extension.value = file.extension;
