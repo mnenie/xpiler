@@ -29,3 +29,11 @@ body {
   left: -4px;
   top: -5px;
 }
+
+
+@media screen and (max-width: 520px){
+  .monaco-scrollable-element{
+    width: 100% !important;
+    height: 100% !important;
+  }
+}

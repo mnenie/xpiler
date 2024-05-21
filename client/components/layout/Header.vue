@@ -98,16 +98,16 @@ onMounted(() => {
             />
           </UiDropdownMenuTrigger>
           <UiDropdownMenuContent>
-            <UiDropdownMenuLabel class="text-[13px]">{{
+            <UiDropdownMenuLabel class="dropdown_text text-[13px]">{{
               user ? user.email : "unknown user"
             }}</UiDropdownMenuLabel>
             <UiDropdownMenuSeparator />
-            <UiDropdownMenuItem @click="onEvent" class="text-[13px]">{{
+            <UiDropdownMenuItem @click="onEvent" class="dropdown_text text-[13px]">{{
               user ? "Sign Out" : "Log in"
             }}</UiDropdownMenuItem>
             <UiDropdownMenuItem
               @click="navigateTo(HOME_ROUTE)"
-              class="text-[13px]"
+              class="text-[13px] dropdown_text"
             >
               Go To Welcome
             </UiDropdownMenuItem>
@@ -117,3 +117,12 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
+<style scoped>
+@media screen and (max-width: 520px){
+  .dropdown_text{
+    @apply text-sm
+  }
+}
+
+</style>

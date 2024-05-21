@@ -3,7 +3,7 @@ const folderStore = useFolderStore();
 </script>
 
 <template>
-  <div class="flex flex-row w-full py-1.5 border-b px-4 items-center dark:border-b-[#3f3f45] dark:text-zinc-200">
+  <div class="flex flex-row w-full py-1.5 workspace border-b px-4 items-center dark:border-b-[#3f3f45] dark:text-zinc-200">
     <div class="basis-4/5 font-semibold">
       <p>My workspace</p>
     </div>
@@ -28,5 +28,11 @@ const folderStore = useFolderStore();
 <style scoped>
 p {
   margin-right: auto;
+}
+
+@media screen and (max-width: 520px){
+  .workspace{
+    @apply pr-10 pb-3
+  }
 }
 </style>

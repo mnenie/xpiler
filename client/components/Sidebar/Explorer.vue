@@ -1,20 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import {
   ContextMenu,
-  ContextMenuCheckboxItem,
   ContextMenuContent,
   ContextMenuItem,
-  ContextMenuLabel,
-  ContextMenuRadioGroup,
-  ContextMenuRadioItem,
-  ContextMenuSeparator,
-  ContextMenuShortcut,
-  ContextMenuSub,
-  ContextMenuSubContent,
-  ContextMenuSubTrigger,
   ContextMenuTrigger,
-} from '@/components/ui/context-menu';
+} from "@/components/ui/context-menu";
 
+const emit = defineEmits<{
+  (e: "updateModal"): void;
+}>();
 
 const folderStore = useFolderStore();
 
@@ -34,15 +28,22 @@ const folderStore = useFolderStore();
           :key="file.id"
           :item="file"
           :layer="0"
+          @update-modal="emit('updateModal')"
         />
       </div>
     </ContextMenuTrigger>
-    <ContextMenuContent class="w-72 bg-zinc-100 border-zinc-300 dark:bg-zinc-800 dark:border-[#3f3f45]">
-      <ContextMenuItem @click.stop="folderStore.createFile('0', folderStore.dir, 0)">
+    <ContextMenuContent
+      class="w-72 bg-zinc-100 border-zinc-300 dark:bg-zinc-800 dark:border-[#3f3f45]"
+    >
+      <ContextMenuItem
+        @click.stop="folderStore.createFile('0', folderStore.dir, 0)"
+      >
         <p>Создать файл</p>
         <iconsFilePlusIcon />
       </ContextMenuItem>
-      <ContextMenuItem @click.stop="folderStore.createFolder('0', folderStore.dir, 0)">
+      <ContextMenuItem
+        @click.stop="folderStore.createFolder('0', folderStore.dir, 0)"
+      >
         <p>Создать папку</p>
         <iconsFolderPlusIcon />
       </ContextMenuItem>

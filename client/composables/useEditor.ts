@@ -5,6 +5,7 @@ import type { IFile } from "~/types/folder.interface";
 import { useColorMode } from "@vueuse/core";
 import themeDark from "~/utils/theme-dark";
 import themeLight from "~/utils/theme-light";
+import useRefactoring from "./useRefactoring";
 
 type Nullable<T> = T | null;
 const mode = useColorMode();
@@ -21,6 +22,7 @@ export default function useEditor(
   const monacoInstance = shallowRef<Nullable<typeof monaco_editor>>(null);
 
   const { onAutoCompletion } = useAutoCompletion(text, content);
+  const { onRefactoring } = useRefactoring(text, content);
   const { symbols, extension } = storeToRefs(useEditorStore());
   const { onCollaboration } = useCollaboration();
 
@@ -46,6 +48,7 @@ export default function useEditor(
         uri
       );
       extension.value = file.extension;
+      activeFile.value = file
 
       modelMap.set(file.id, model);
       model.onDidChangeContent(() => {
@@ -80,13 +83,20 @@ export default function useEditor(
   };
 
   const aiMenuConfig = (monaco: typeof monaco_editor) => {
-    const aiAction: monaco.editor.IActionDescriptor = {
+    const aiActionCompletion: monaco.editor.IActionDescriptor = {
       id: "ai_helper",
       label: `✨ Xpiler AI Auto-Completion`,
       run: () => onAutoCompletion(),
       keybindings: [monaco.KeyMod.Alt | monaco.KeyCode.KeyQ],
     };
-    monaco.editor.addEditorAction(aiAction);
+    const aiActionRefactoring: monaco.editor.IActionDescriptor = {
+      id: "ai_helper_refactoring",
+      label: `✨ Xpiler AI Refactoring`,
+      run: () => onRefactoring(),
+      keybindings: [monaco.KeyMod.Alt | monaco.KeyCode.KeyR],
+    };
+    monaco.editor.addEditorAction(aiActionCompletion);
+    monaco.editor.addEditorAction(aiActionRefactoring);
   };
 
   watch(
