@@ -46,6 +46,19 @@ const onFile = (item: IFile) => {
   }
 };
 
+
+watchEffect(() => {
+  const keyBindings = async (e: KeyboardEvent) => {
+    if(e.metaKey && e.key === 's'){
+      e.preventDefault();
+      folderStore.updateContent(props.item._id, folderStore.dir, editorStore.symbols)
+    }
+  }
+  if(document){
+    document.addEventListener('keydown', keyBindings)
+  }
+})
+
 watch(
   () => props.item.extension,
   () => {

@@ -47,9 +47,9 @@ export const useFolderStore = defineStore("folder", () => {
       const newFile = {
         _id: globalId.toString(),
         content: "// Start coding",
-        name: "script",
+        name: "index",
         parentId: parentId,
-        extension: "py",
+        extension: "js",
         isSaved: true,
       } as IFile;
       folder.files.push(newFile);
@@ -117,6 +117,22 @@ export const useFolderStore = defineStore("folder", () => {
     }
     folder.folders.forEach(f => toggleFold(id, f))
   }
+
+
+  const updateContent = (id: string, folder: IFolder, content: string) => {
+    folder.files.forEach(async (f) => {
+      if (f._id == id) {
+        try{
+          const response = await patchFile(id, {content: content})
+          f.content = content
+          return response
+        } catch (err) {
+          console.log(err)
+        }
+      }
+    });
+    folder.folders.forEach((f) => updateContent(id, f, content));
+  }
   
   const getUserFolders = async () => {
     try {
@@ -140,6 +156,7 @@ export const useFolderStore = defineStore("folder", () => {
     deleteFolder,
     deleteFile,
     toggleFold,
-    getUserFolders
+    getUserFolders,
+    updateContent
   };
 });

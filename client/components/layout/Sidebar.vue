@@ -2,7 +2,7 @@
 import { useWindowSize } from "@vueuse/core";
 
 const folderStore = useFolderStore();
-const { getFile, getFiles, postFile, delFile } = useFolder();
+const { getFile, postFile, delFile } = useFolder();
 
 const { dir } = storeToRefs(folderStore);
 const { width } = useWindowSize();
@@ -15,7 +15,7 @@ const { width } = useWindowSize();
   >
     <SidebarTopMenu />
     <SidebarExplorer
-      v-if="dir.folders.length !== 0 || dir.files.length !== 0"
+      v-if="dir && dir.folders && (dir.folders.length !== 0 || dir.files.length !== 0)"
     />
     <SidebarEmpty v-else />
   </div>
