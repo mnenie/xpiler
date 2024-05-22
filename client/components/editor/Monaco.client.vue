@@ -50,7 +50,7 @@ onUnmounted(() => {
       @switch-tab="switchTab"
     />
     <vue-monaco-editor
-      v-model:value="content"
+      v-model:value="editorStore.symbols"
       :default-language="'typescript'"
       :options="defaultOptions"
       @mount="onLoad"

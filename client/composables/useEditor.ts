@@ -49,6 +49,7 @@ export default function useEditor(
 
     files = [...files].map((file) => {
       content.value = file.content;
+      console.log(content.value)
       const uri = monacoInstance.value!.Uri.parse(
         `${file.name}.${file.extension}`
       );
@@ -59,11 +60,12 @@ export default function useEditor(
       );
       extension.value = file.extension;
       activeFile.value = file
+      symbols.value = file.content
 
-      modelMap.set(file.id, model);
+      modelMap.set(file._id, model);
       model.onDidChangeContent(() => {
         modelMap.set(
-          file.id,
+          file._id,
           editorRef.value!.getModel() as monaco.editor.ITextModel
         );
       });
@@ -83,7 +85,7 @@ export default function useEditor(
 
   const switchTab = (to: IFile) => {
     activeFile.value = to;
-    const activeModel = modelMap.get(to.id);
+    const activeModel = modelMap.get(to._id);
 
     if (activeModel) {
       editorRef.value?.setModel(activeModel);
@@ -117,13 +119,6 @@ export default function useEditor(
       monacoRef.value?.editor!.setTheme(
         mode.value === "light" ? "theme-light" : "theme-dark"
       );
-    }
-  );
-
-  watch(
-    () => content.value,
-    () => {
-      symbols.value = content.value;
     }
   );
 

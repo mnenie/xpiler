@@ -42,7 +42,7 @@ export const useFolderStore = defineStore("folder", () => {
     folder.folders.forEach((f) => createFolder(folder._id, f, layer + 1));
   };
 
-  const createFile = (parentId: string, folder: IFolder, layer: number) => {
+  const createFile = async (parentId: string, folder: IFolder, layer: number) => {
     if (parentId == folder._id) {
       const newFile = {
         _id: globalId.toString(),
@@ -52,17 +52,20 @@ export const useFolderStore = defineStore("folder", () => {
         extension: "js",
         isSaved: true,
       } as IFile;
-      folder.files.push(newFile);
+      
+      try {
+        const resp = await postFile(newFile);
+        newFile._id = resp.data._id;
+        folder.files.push(newFile);
+        await putFile(parentId, resp.data._id);
+      } catch (err) {
+        console.error(err);
+      }
 
-      postFile(newFile).then(resp => {
-        let newFileId = resp.data._id;
-        putFile(parentId, newFileId);
-      }).catch(err => console.log(err));
-
-      globalId += 1;
-      globalId %= 32768;
+      globalId = (globalId + 1) % 32768;
       return;
     }
+
     folder.folders.forEach((f) => createFile(parentId, f, layer + 1));
   };
 
@@ -122,23 +125,17 @@ export const useFolderStore = defineStore("folder", () => {
   const updateContent = (id: string, folder: IFolder, content: string) => {
     folder.files.forEach(async (f) => {
       if (f._id == id) {
-        try{
-          const response = await patchFile(id, {content: content})
+          patchFile(id, {content: content}).catch(err => console.log(err));
           f.content = content
-          return response
-        } catch (err) {
-          console.log(err)
+          return
         }
-      }
     });
     folder.folders.forEach((f) => updateContent(id, f, content));
   }
   
   const getUserFolders = async () => {
     try {
-      console.log(dir.value._id)
       const response = await getFolders(dir.value._id);
-      console.log(response)
       dir.value.folders = response.data.folders;
       dir.value.files = response.data.files;
     } catch (err) {

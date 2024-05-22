@@ -15,21 +15,21 @@ export default function useCollaboration() {
   const onCollaboration = (
     editorRef: ShallowRef<monaco.editor.IStandaloneCodeEditor | undefined>
   ) => {
-    const type = doc!.getText("monaco");
-    const awareness = provider!.awareness;
+    // const type = doc!.getText("monaco");
+    // const awareness = provider!.awareness;
 
-    binding = new MonacoBinding(
-      type,
-      editorRef.value!.getModel()!,
-      new Set([editorRef.value!]),
-      awareness
-    );
+    // binding = new MonacoBinding(
+    //   type,
+    //   editorRef.value!.getModel()!,
+    //   new Set([editorRef.value!]),
+    //   awareness
+    // );
   };
 
-  watchEffect(() => {
-    doc = new Y.Doc();
-    provider = new WebrtcProvider(route.params.id as string, doc);
-  });
+  // watchEffect(() => {
+  //   doc = new Y.Doc();
+  //   provider = new WebrtcProvider(route.params.id as string, doc);
+  // });
 
   return {
     provider,
