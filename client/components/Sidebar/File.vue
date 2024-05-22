@@ -64,7 +64,7 @@ watch(
         :style="identStyle"
         :class="
           cn('flex flex-row my-1 py-1', {
-            'bg-zinc-200 w-full dark:bg-zinc-700/40': isActiveRoute(item.id),
+            'bg-zinc-200 w-full dark:bg-zinc-700/40': isActiveRoute(item._id),
           })
         "
         class="hover:bg-zinc-200/60 dark:hover:bg-zinc-700/40"
@@ -83,7 +83,7 @@ watch(
           <form
             v-else
             @submit.prevent="
-              folderStore.renameFile(newName, props.item.id, folderStore.dir);
+              folderStore.renameFile(newName, props.item._id, folderStore.dir);
               renaming = false;
             "
           >
@@ -117,8 +117,8 @@ watch(
       </ContextMenuItem>
       <ContextMenuItem
         @click.stop="
-          folderStore.deleteFile(props.item.id, folderStore.dir);
-          editorStore.removeFile(props.item.id);
+          folderStore.deleteFile(props.item._id, folderStore.dir);
+          editorStore.removeFile(props.item._id);
         "
       >
         <p>Удалить</p>

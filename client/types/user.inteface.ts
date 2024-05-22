@@ -8,6 +8,7 @@ export interface UserType extends DateParams {
   Gitid: string;
   email: string;
   photoURL?: string;
+  rootFolder: string
 }
 
 export interface UserAuth extends UserType {

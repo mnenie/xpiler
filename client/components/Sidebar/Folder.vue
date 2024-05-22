@@ -38,7 +38,7 @@ const clearFolder = (folder : IFolder) => {
   if (folder.folders.length !== 0) {
     folder.folders.forEach(f => clearFolder(f))
   }
-  folder.files.forEach(f => edtorStore.removeFile(f.id))
+  folder.files.forEach(f => edtorStore.removeFile(f._id))
 }
 
 const mode = useColorMode();
@@ -47,7 +47,7 @@ const mode = useColorMode();
 <template>
   <ContextMenu>
     <ContextMenuTrigger>
-      <div @click.stop="folderStore.toggleFold(props.item.id, folderStore.dir); folded = !folded">
+      <div @click.stop="folderStore.toggleFold(props.item._id, folderStore.dir); folded = !folded">
         <div @mouseenter="hover = true" @mouseleave="hover = false" :style="identStyle"
           class="flex flex-row hover:bg-zinc-200/60 dark:hover:bg-zinc-700/40 my-1 py-1">
           <div class="flex flex-row space-x-2 items-center cursor-pointer basis-4/5">
@@ -58,7 +58,7 @@ const mode = useColorMode();
               {{ props.item.name }}
             </p>
             <form v-else @submit.prevent="
-              folderStore.renameFolder(newName, props.item.id, folderStore.dir);
+              folderStore.renameFolder(newName, props.item._id, folderStore.dir);
               renaming = false;
             ">
               <input class="bg-zinc-200 dark:bg-zinc-700/70 dark:text-zinc-200 outline-none w-4/5 rounded-sm" type="text" v-model="newName" />
@@ -67,18 +67,18 @@ const mode = useColorMode();
           </div>
         </div>
         <div v-if="!folded">
-          <SidebarFolder v-if="props.item.folders.length > 0" v-for="folder in item.folders" :key="folder.id"
+          <SidebarFolder v-if="props.item.folders.length > 0" v-for="folder in item.folders" :key="folder._id"
             :item="folder" />
-          <SidebarFile v-for="file in item.files" :key="file.id" :item="file" :layer="props.item.layer + 1" />
+          <SidebarFile v-for="file in item.files" :key="file._id" :item="file" :layer="props.item.layer + 1" />
         </div>
       </div>
     </ContextMenuTrigger>
     <ContextMenuContent class="w-72 bg-zinc-100 border-zinc-300 dark:bg-zinc-800 dark:border-[#3f3f45]">
-      <ContextMenuItem @click.stop="folderStore.createFolder( props.item.id, props.item, props.item.layer + 1)">
+      <ContextMenuItem @click.stop="folderStore.createFolder( props.item._id, props.item, props.item.layer + 1)">
         <p>Создать папку</p>
         <iconsFolderPlusIcon />
       </ContextMenuItem>
-      <ContextMenuItem @click.stop="folderStore.createFile(props.item.id,props.item, props.item.layer + 1)">
+      <ContextMenuItem @click.stop="folderStore.createFile(props.item._id,props.item, props.item.layer + 1)">
         <p>Создать файл</p>
         <iconsFilePlusIcon />
       </ContextMenuItem>
@@ -96,7 +96,7 @@ const mode = useColorMode();
         <p>Переименовать</p>
         <iconsPen />
       </ContextMenuItem>
-      <ContextMenuItem @click.stop="clearFolder(props.item); folderStore.deleteFolder(props.item.id, folderStore.dir);">
+      <ContextMenuItem @click.stop="clearFolder(props.item); folderStore.deleteFolder(props.item._id, folderStore.dir);">
         <p>Удалить</p>
         <iconsTrashbin />
       </ContextMenuItem>

@@ -2,11 +2,13 @@ import { defineStore } from "pinia";
 import type { IFile, IFolder } from "@/types/folder.interface";
 
 export const useFolderStore = defineStore("folder", () => {
-  const { getFile, getFiles, postFile, delFile, patchFile,
-    getFolder, getFolders, postFolder, delFolder, patchFolder } = useFolder();
+  const { getFile, postFile, putFile, delFile, patchFile,
+    getFolders, postFolder, putFolder, delFolder, patchFolder } = useFolder();
+
   let globalId = 0;
+
   let dir = ref({
-    id: "0",
+    _id: "0",
     name: "root",
     files: [],
     folders: [],
@@ -16,32 +18,47 @@ export const useFolderStore = defineStore("folder", () => {
   } as IFolder);
 
   const createFolder = (parentId: string, folder: IFolder, layer: number) => {
-    if (parentId == folder.id) {
-      folder.folders.push({
-        id: globalId.toString(),
+    if (parentId == folder._id) {
+      const newFolder = {
+        _id: globalId.toString(),
         name: "New folder",
         files: [],
         folders: [],
         parentId: parentId,
         layer: layer,
         isFolded: false,
-      } as IFolder);
+      } as IFolder;
+      folder.folders.push(newFolder);
+
+      postFolder(newFolder).then(resp => {
+        let newFolderId = resp.data._id;
+        putFolder(parentId, newFolderId);
+      }).catch(err => console.log(err));
+
       globalId += 1;
       globalId %= 32768;
       return;
     }
-    folder.folders.forEach((f) => createFolder(folder.id, f, layer + 1));
+    folder.folders.forEach((f) => createFolder(folder._id, f, layer + 1));
   };
 
   const createFile = (parentId: string, folder: IFolder, layer: number) => {
-    if (parentId == folder.id) {
-      folder.files.push({
-        id: globalId.toString(),
+    if (parentId == folder._id) {
+      const newFile = {
+        _id: globalId.toString(),
         content: "// Start coding",
-        name: "index",
-        extension: "js",
+        name: "script",
+        parentId: parentId,
+        extension: "py",
         isSaved: true,
-      } as IFile);
+      } as IFile;
+      folder.files.push(newFile);
+
+      postFile(newFile).then(resp => {
+        let newFileId = resp.data._id;
+        putFile(parentId, newFileId);
+      }).catch(err => console.log(err));
+
       globalId += 1;
       globalId %= 32768;
       return;
@@ -51,8 +68,9 @@ export const useFolderStore = defineStore("folder", () => {
 
   const renameFolder = (name: string, id: string, folder: IFolder) => {
     folder.folders.forEach((f) => {
-      if (f.id == id) {
+      if (f._id == id) {
         f.name = name;
+        patchFolder(id, {name: name}).catch(err => console.log(err))
         return;
       }
       renameFolder(name, id, f);
@@ -61,11 +79,12 @@ export const useFolderStore = defineStore("folder", () => {
 
   const renameFile = (name: string, id: string, folder: IFolder) => {
     folder.files.forEach((f) => {
-      if (f.id == id) {
+      if (f._id == id) {
         const fullname = name.split(".");
         const extension = fullname.pop();
         f.name = fullname.join(".");
         f.extension = extension || "";
+        patchFile(id, {name: f.name, extension: extension}).catch(err => console.log(err));
         return;
       }
     });
@@ -73,29 +92,43 @@ export const useFolderStore = defineStore("folder", () => {
   };
 
   const deleteFolder = (id: string, folder: IFolder) => {
-    if (folder.folders.some((f) => f.id == id)) {
-      folder.folders = folder.folders.filter((f) => f.id !== id);
+    if (folder.folders.some((f) => f._id == id)) {
+      folder.folders = folder.folders.filter((f) => f._id !== id);
+      delFolder(id).catch(err => console.log(err));
       return;
     }
     folder.folders.forEach((f) => deleteFolder(id, f));
   };
 
   const deleteFile = (id: string, folder: IFolder) => {
-    if (folder.files.some((f) => f.id == id)) {
-      folder.files = folder.files.filter((f) => f.id !== id);
+    if (folder.files.some((f) => f._id == id)) {
+      folder.files = folder.files.filter((f) => f._id !== id);
+      delFile(id).catch(err => console.log(err));
       return;
     }
     folder.folders.forEach((f) => deleteFile(id, f));
-    if (folder.folders.length === 0) navigateTo(COMPILER_ROUTE);
+    if (folder.folders.length === 0) navigateTo(COMPILER_ABOUT_ROUTE);
   };
 
   const toggleFold = (id : string, folder : IFolder) => {
-    if (folder.id == id) {
+    if (folder._id == id) {
       folder.isFolded = !folder.isFolded;
       return;
     }
     folder.folders.forEach(f => toggleFold(id, f))
   }
+  
+  const getUserFolders = async () => {
+    try {
+      console.log(dir.value._id)
+      const response = await getFolders(dir.value._id);
+      console.log(response)
+      dir.value.folders = response.data.folders;
+      dir.value.files = response.data.files;
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return {
     dir,
@@ -106,6 +139,7 @@ export const useFolderStore = defineStore("folder", () => {
     renameFile,
     deleteFolder,
     deleteFile,
-    toggleFold
+    toggleFold,
+    getUserFolders
   };
 });

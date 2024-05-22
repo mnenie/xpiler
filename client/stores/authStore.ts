@@ -14,7 +14,7 @@ export const useAuthStore = defineStore("auth", () => {
       const creds = await onLogin({
         Gitid: response?.user.uid!,
         email: response?.user.email!,
-        photoURL: response?.user.photoURL!,
+        photoURL: response?.user.photoURL!
       });
       user.value = creds.data;
       token.value = creds.data.token;
@@ -40,6 +40,12 @@ export const useAuthStore = defineStore("auth", () => {
     user.value = null;
     token.value = "";
   };
+
+  watch(() => user.value, async () => { 
+    useFolderStore().dir._id = user.value!.rootFolder;
+    useFolderStore().dir.parentId = user.value!.rootFolder;
+    await useFolderStore().getUserFolders();
+  })
 
   return {
     user,

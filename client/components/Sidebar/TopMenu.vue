@@ -1,5 +1,8 @@
-<script setup>
+<script setup lang="ts">
+
 const folderStore = useFolderStore();
+const authStore = useAuthStore();
+
 </script>
 
 <template>
@@ -12,11 +15,11 @@ const folderStore = useFolderStore();
         <IconsPlusIcon />
       </UiDropdownMenuTrigger>
       <UiDropdownMenuContent class="w-52 bg-zinc-100 border-zinc-300 dark:bg-zinc-800 dark:border-[#3f3f45]">
-        <UiDropdownMenuItem @click.stop="folderStore.createFile('0', folderStore.dir, 0)">
+        <UiDropdownMenuItem @click.stop="folderStore.createFile(authStore.user?.rootFolder!, folderStore.dir, 0)">
           <p>Создать файл</p>
           <iconsFilePlusIcon />
         </UiDropdownMenuItem>
-        <UiDropdownMenuItem @click.stop="folderStore.createFolder('0', folderStore.dir, 0)">
+        <UiDropdownMenuItem @click.stop="folderStore.createFolder(authStore.user?.rootFolder!, folderStore.dir, 0)">
           <p>Создать папку</p>
           <iconsFolderPlusIcon />
         </UiDropdownMenuItem>

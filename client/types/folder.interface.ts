@@ -1,17 +1,18 @@
 export interface IFolder {
-    id: string,
+    _id: string,
     name: string,
     files: Array<IFile>,
     folders: Array<IFolder>,
-    parentId: String,
+    parentId: string,
     layer: number,
     isFolded: boolean
 }
 
 export interface IFile {
-    id: string,
+    _id: string,
     name: string,
     extension: string,
+    parentId: string,
     content: string,
     isSaved: boolean,
 }

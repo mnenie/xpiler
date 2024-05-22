@@ -8,19 +8,19 @@ export const useEditorStore = defineStore("editor", () => {
   const extension = ref<string>('');
 
   const toggleFile = (file: IFile) => {
-    const index = activeTabs.value.findIndex((f) => f.id === file.id);
+    const index = activeTabs.value.findIndex((f) => f._id === file._id);
     if (index === -1) {
       if (activeTabs.value.length > 1) {
         const prevFile = activeTabs.value[activeTabs.value.length - 1];
-        removeFile(prevFile.id);
+        removeFile(prevFile._id);
       }
       activeTabs.value.push(file);
-      navigateTo(COMPILER_ROUTE + '/' + file.id);
+      navigateTo(COMPILER_ROUTE + '/' + file._id);
     }
   };
 
   const removeFile = (id: string) => {
-    activeTabs.value = activeTabs.value.filter((f) => f.id !== id);
+    activeTabs.value = activeTabs.value.filter((f) => f._id !== id);
     if(activeTabs.value.length === 1){
       navigateTo(COMPILER_ROUTE + '/' + 'about_compiler')
     }
