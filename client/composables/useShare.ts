@@ -9,7 +9,7 @@ export default function useShare() {
     if (isShare.value) {
       if (document) {
         navigator.clipboard.writeText(
-          `http://localhost:3000/compiler/${route.params.id}`
+          `https://xpiler-app.vercel.app//compiler/${route.params.id}`
         );
         document.execCommand("copy");
       }
