@@ -10,7 +10,7 @@
   "type":"module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mnenie/compiler-mirea.git#backend"
+    "url": "git+https://github.com/airvt1x/mirea-hack-back"
   },
   "author": "",
   "license": "ISC",
