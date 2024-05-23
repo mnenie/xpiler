@@ -60,7 +60,7 @@ const mode = useColorMode();
             <form v-else @submit.prevent="
               folderStore.renameFolder(newName, props.item._id, folderStore.dir);
               renaming = false;
-            ">
+            " @click.stop>
               <input class="bg-zinc-200 dark:bg-zinc-700/70 dark:text-zinc-200 outline-none w-4/5 rounded-sm" type="text" v-model="newName" />
               <input type="submit" hidden />
             </form>
