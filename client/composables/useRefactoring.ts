@@ -40,12 +40,10 @@ export default function useRefactoring(
     }
     const response = await useData();
 
-    const cleanedResponse = (response as string).replace(/```/g, '').trim();
+    const cleanedResponse = (response as string).replace(/```/g, "").trim();
     const index = content.value!.indexOf(text.value);
-    if (index !== -1) {
-      const newText = cleanedResponse
-      content.value = newText;
-    }
+    const newText = cleanedResponse;
+    content.value = newText;
   };
 
   return {

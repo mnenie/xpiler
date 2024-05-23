@@ -26,10 +26,22 @@ export default function useCollaboration() {
     );
   };
 
-  watchEffect(() => {
+  onMounted(() => {
     doc = new Y.Doc();
     provider = new WebrtcProvider(route.params.id as string, doc);
   });
+
+  onUnmounted(() => {
+    if (provider) {
+      provider.destroy();
+    }
+    if (binding) {
+      binding.destroy();
+    }
+    if (doc) {
+      doc.destroy();
+    }
+  })
 
   return {
     provider,

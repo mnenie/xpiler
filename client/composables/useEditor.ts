@@ -79,11 +79,12 @@ export default function useEditor(
     });
 
     aiMenuConfig(monacoInstance.value);
-    onCollaboration(editorRef);
 
     if (!token.value) {
       navigateTo(COMPILER_ABOUT_ROUTE);
     }
+
+    onCollaboration(editorRef);
   };
 
   const switchTab = (to: IFile) => {

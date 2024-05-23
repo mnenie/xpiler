@@ -57,7 +57,6 @@ export const useFolderStore = defineStore("folder", () => {
           await putFolder(parentId, resp.data._id);
           newFolder._id = resp.data._id;
           activeId.value = newFolder._id;
-          console.log(newFolder._id);
         } catch (err) {
           console.log(err);
         }
@@ -89,11 +88,12 @@ export const useFolderStore = defineStore("folder", () => {
       if (dir.value._id !== "0") {
         try {
           const resp = await postFile(newFile.value);
-          // console.log(resp.data)
+          console.log(resp.data)
           newFile.value._id = resp.data._id;
-          await putFile(activeId.value, resp.data._id);
+          const newId = activeId.value === '' ? parentId : activeId.value
+          await putFile(newId, resp.data._id);
         } catch (err) {
-          console.error(err);
+          console.log(err);
         }
       }
 

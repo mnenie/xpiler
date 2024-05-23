@@ -41,14 +41,13 @@ export default function useEditorCompletion(
       text.value = window.getSelection()?.toString() || "";
     }
     const response = await useEditorData();
+    console.log(response);
     const index = content.value!.indexOf(text.value);
-    if (index !== -1) {
-      const newText =
-        content.value!.slice(0, index + text.value.length) +
-        ` ${response as string}` +
-        content.value!.slice(index + text.value.length);
-      content.value = newText;
-    }
+    const newText =
+      content.value!.slice(0, index + text.value.length) +
+      ` ${response as string}` +
+      content.value!.slice(index + text.value.length);
+    content.value = newText;
   };
 
   return {
