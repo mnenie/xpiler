@@ -18,6 +18,7 @@ const langMap = new Map<string, string>([
   ["html", "html"],
   ["json", "json"],
   ["py", "python"],
+  ["go", "go"]
 ]);
 
 export default function useEditor(
@@ -69,7 +70,7 @@ export default function useEditor(
       model.onDidChangeContent(() => {
         modelMap.set(
           file._id,
-          editorRef.value!.getModel() as monaco.editor.ITextModel
+          editorRef.value!.getModel() as monaco.editor.ITextModel,
         );
       });
       return {
@@ -78,12 +79,11 @@ export default function useEditor(
     });
 
     aiMenuConfig(monacoInstance.value);
+    onCollaboration(editorRef);
 
-    if (files.length === 1) {
+    if (!token.value) {
       navigateTo(COMPILER_ABOUT_ROUTE);
     }
-
-    onCollaboration(editorRef);
   };
 
   const switchTab = (to: IFile) => {
