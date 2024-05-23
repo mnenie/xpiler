@@ -7,17 +7,25 @@ const editorStore = useEditorStore()
 
 const route = useRoute()
 
-watchEffect(() => {
-  const keyBindings = async (e: KeyboardEvent) => {
-    if((e.metaKey || e.ctrlKey) && e.key === 's'){
-      e.preventDefault();
-      folderStore.updateContent(route.params.id as string, folderStore.dir, editorStore.symbols)
-    }
+const keyBindings = async (e: KeyboardEvent) => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 's'){
+    e.preventDefault();
+    folderStore.updateContent(useRoute().params.id as string, folderStore.dir, editorStore.symbols)
   }
-  if(document){
-    document.addEventListener('keydown', keyBindings)
+}
+
+onMounted(() => {
+    if (document){
+      document.addEventListener('keydown', keyBindings)
+    }
+})
+
+onUnmounted(() => {
+  if (document) {
+    document.removeEventListener('keydown', keyBindings);
   }
 })
+
 </script>
 
 <template>

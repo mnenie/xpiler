@@ -37,13 +37,13 @@ const authStore = useAuthStore();
       class="w-72 bg-zinc-100 border-zinc-300 dark:bg-zinc-800 dark:border-[#3f3f45]"
     >
       <ContextMenuItem
-        @click.stop="folderStore.createFile(authStore.user?.rootFolder!, folderStore.dir, 0)"
+        @click.stop="folderStore.createFile(authStore.user?.rootFolder! || '0', folderStore.dir, 0)"
       >
         <p>Создать файл</p>
         <iconsFilePlusIcon />
       </ContextMenuItem>
       <ContextMenuItem
-        @click.stop="folderStore.createFolder(authStore.user?.rootFolder!, folderStore.dir, 0)"
+        @click.stop="folderStore.createFolder(authStore.user?.rootFolder! || '0', folderStore.dir, 0)"
       >
         <p>Создать папку</p>
         <iconsFolderPlusIcon />

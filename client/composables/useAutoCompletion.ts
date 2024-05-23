@@ -15,7 +15,7 @@ export default function useEditorCompletion(
         const data = await $fetch("/api/editor", {
           method: "POST",
           body: JSON.stringify({
-            text: text.value,
+            text: content.value,
             extension: extension.value,
           }),
         });

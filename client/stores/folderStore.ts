@@ -30,13 +30,14 @@ export const useFolderStore = defineStore("folder", () => {
       } as IFolder;
       folder.folders.push(newFolder);
 
-      postFolder(newFolder).then(resp => {
-        let newFolderId = resp.data._id;
-        putFolder(parentId, newFolderId);
-      }).catch(err => console.log(err));
+      if (dir.value._id !== "0") {
+        postFolder(newFolder).then(resp => {
+          let newFolderId = resp.data._id;
+          putFolder(parentId, newFolderId);
+        }).catch(err => console.log(err));
+      }
 
-      globalId += 1;
-      globalId %= 32768;
+      globalId = (globalId + 1) % 32768;
       return;
     }
     folder.folders.forEach((f) => createFolder(folder._id, f, layer + 1));
@@ -53,12 +54,15 @@ export const useFolderStore = defineStore("folder", () => {
         isSaved: true,
       }  as IFile);
       folder.files.push(newFile.value);
-      try {
-        const resp = await postFile(newFile.value);
-        newFile.value._id = resp.data._id;
-        await putFile(parentId, resp.data._id);
-      } catch (err) {
-        console.error(err);
+
+      if (dir.value._id !== "0") {
+        try {
+          const resp = await postFile(newFile.value);
+          newFile.value._id = resp.data._id;
+          await putFile(parentId, resp.data._id);
+        } catch (err) {
+          console.error(err);
+        }
       }
 
       globalId = (globalId + 1) % 32768;
@@ -72,7 +76,7 @@ export const useFolderStore = defineStore("folder", () => {
     folder.folders.forEach((f) => {
       if (f._id == id) {
         f.name = name;
-        patchFolder(id, {name: name}).catch(err => console.log(err))
+        if (dir.value._id !== "0") patchFolder(id, {name: name}).catch(err => console.log(err));
         return;
       }
       renameFolder(name, id, f);
@@ -86,7 +90,7 @@ export const useFolderStore = defineStore("folder", () => {
         const extension = fullname.pop();
         f.name = fullname.join(".");
         f.extension = extension || "";
-        patchFile(id, {name: f.name, extension: extension}).catch(err => console.log(err));
+        if (dir.value._id !== "0") patchFile(id, {name: f.name, extension: extension}).catch(err => console.log(err));
         return;
       }
     });
@@ -96,7 +100,7 @@ export const useFolderStore = defineStore("folder", () => {
   const deleteFolder = (id: string, folder: IFolder) => {
     if (folder.folders.some((f) => f._id == id)) {
       folder.folders = folder.folders.filter((f) => f._id !== id);
-      delFolder(id).catch(err => console.log(err));
+      if (dir.value._id !== "0") delFolder(id).catch(err => console.log(err));
       return;
     }
     folder.folders.forEach((f) => deleteFolder(id, f));
@@ -105,7 +109,7 @@ export const useFolderStore = defineStore("folder", () => {
   const deleteFile = (id: string, folder: IFolder) => {
     if (folder.files.some((f) => f._id == id)) {
       folder.files = folder.files.filter((f) => f._id !== id);
-      delFile(id).catch(err => console.log(err));
+      if (dir.value._id !== "0") delFile(id).catch(err => console.log(err));
       return;
     }
     folder.folders.forEach((f) => deleteFile(id, f));
@@ -122,13 +126,14 @@ export const useFolderStore = defineStore("folder", () => {
 
 
   const updateContent = (id: string, folder: IFolder, content: string) => {
-    folder.files.forEach(async (f) => {
-      if (f._id == id) {
-          patchFile(id, {content: content}).catch(err => console.log(err));
+    folder.files.forEach((f) => {
+      if (f._id === id && f._id !== "about_compiler") {
+          if (dir.value._id !== "0") patchFile(id, {content: content}).catch(err => console.log(err));
           f.content = content
-          return
+          return;
         }
     });
+    folder.folders.forEach(f => updateContent(id, f, content))
   }
   
   const getUserFolders = async () => {
@@ -137,7 +142,7 @@ export const useFolderStore = defineStore("folder", () => {
       dir.value.folders = response.data.folders;
       dir.value.files = response.data.files;
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 

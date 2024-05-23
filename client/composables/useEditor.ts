@@ -36,6 +36,7 @@ export default function useEditor(
   const { onAutoCompletion } = useAutoCompletion(text, content, extension);
   const { onRefactoring } = useRefactoring(text, content);
   const { token } = storeToRefs(useAuthStore());
+  const folderStore = useFolderStore();
   const { onCollaboration } = useCollaboration();
 
   const onLoad = (editor: monaco.editor.IStandaloneCodeEditor) => {
@@ -78,9 +79,9 @@ export default function useEditor(
 
     aiMenuConfig(monacoInstance.value);
 
-    // if (files.length === 1) {
-    //   navigateTo(COMPILER_ABOUT_ROUTE);
-    // }
+    if (files.length === 1) {
+      navigateTo(COMPILER_ABOUT_ROUTE);
+    }
 
     onCollaboration(editorRef);
   };
@@ -92,7 +93,7 @@ export default function useEditor(
     if (activeModel) {
       editorRef.value?.setModel(activeModel);
       content.value = activeFile.value.content;
-      onCollaboration(editorRef);
+      // onCollaboration(editorRef);
     }
   };
 
