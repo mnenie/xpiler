@@ -8,8 +8,9 @@ export default function useShare() {
     isShare.value = true;
     if (isShare.value) {
       if (document) {
+        const baseUrl = window.location.origin;
         navigator.clipboard.writeText(
-          `https://xpiler-app.vercel.app/compiler/${route.params.id}`
+          `${baseUrl}/compiler/${route.params.id}`
         );
         document.execCommand("copy");
       }
