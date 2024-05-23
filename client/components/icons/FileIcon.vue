@@ -12,6 +12,7 @@ const props = defineProps({
   <IconsExtensionHTML v-else-if="props.extension == 'html'" />
   <iconsExtensionJSON v-else-if="props.extension == 'json'" />
   <IconsExtensionPython v-else-if="props.extension == 'py'" />
+  <IconsExtensionGo v-else-if="props.extension == 'go'" />
 
   <!-- default icon -->
   <svg
