@@ -48,7 +48,7 @@ const toggleNote = () => {
           Symbols: {{ symbols ? symbols.split("").length : 0 }}
         </span>
         <span class="text-xs">{{
-          extension === "ts" ? "TypeScript" : "JavaScript"
+          extension
         }}</span>
       </div>
       <div class="flex items-center gap-3">

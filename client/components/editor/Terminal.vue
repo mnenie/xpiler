@@ -11,8 +11,6 @@ const props = defineProps<{
 
 const date = new Date();
 
-console.log(props.analysis);
-
 const mode = useColorMode();
 </script>
 
@@ -36,7 +34,7 @@ const mode = useColorMode();
         </div>
       </div>
       <div class="p-4 flex flex-col gap-4 overflow-auto">
-        <span class="font-medium text-sm">Last login: {{ date }}</span>
+        <span class="font-medium text-sm">Last login: {{ date.toUTCString() }}</span>
         <div v-if="output && !isPending" class="flex flex-col gap-1">
           <span :class="'text-green-700 text-sm'">Xpiler 0.0.1</span>
           <div class="flex items-center gap-2">

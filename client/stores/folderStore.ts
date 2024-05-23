@@ -44,19 +44,18 @@ export const useFolderStore = defineStore("folder", () => {
 
   const createFile = async (parentId: string, folder: IFolder, layer: number) => {
     if (parentId == folder._id) {
-      const newFile = {
+      const newFile = ref({
         _id: globalId.toString(),
         content: "// Start coding",
         name: "index",
         parentId: parentId,
         extension: "js",
         isSaved: true,
-      } as IFile;
-      
+      }  as IFile);
+      folder.files.push(newFile.value);
       try {
-        const resp = await postFile(newFile);
-        newFile._id = resp.data._id;
-        folder.files.push(newFile);
+        const resp = await postFile(newFile.value);
+        newFile.value._id = resp.data._id;
         await putFile(parentId, resp.data._id);
       } catch (err) {
         console.error(err);
@@ -130,7 +129,6 @@ export const useFolderStore = defineStore("folder", () => {
           return
         }
     });
-    folder.folders.forEach((f) => updateContent(id, f, content));
   }
   
   const getUserFolders = async () => {

@@ -12,14 +12,12 @@ const text = ref("");
 
 const { monacoRef } = useMonaco();
 
-const { editorRef, onLoad, content, activeFile, switchTab } = useEditor(
+const { editorRef, onLoad, content, activeFile, switchTab, language } = useEditor(
   monacoRef,
   editorStore.activeTabs,
   modelMap,
   text
 );
-
-const language = ref("typescript");
 
 const { executeCode, isPending } = useTerminal();
 const { useData, isPendingAnalysis } = useAnalysis();
@@ -50,8 +48,8 @@ onUnmounted(() => {
       @switch-tab="switchTab"
     />
     <vue-monaco-editor
-      v-model:value="editorStore.symbols"
-      :default-language="'typescript'"
+      v-model:value="content"
+      :language="language"
       :options="defaultOptions"
       @mount="onLoad"
     />

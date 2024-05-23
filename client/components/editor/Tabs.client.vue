@@ -21,13 +21,13 @@ const emits = defineEmits<{
   >
     <div
       v-for="file in activeTabs"
-      :key="file.id"
+      :key="file._id"
       @click="emits('switchTab', file)"
       :class="
         cn(
           'list-none, text-gray-900 text-[13px] md:text-[13px] 2xl:text-[14px] flex items-center gap-2 h-8 px-3 border-r border-zinc-300 cursor-pointer dark:text-zinc-200 dark:border-[#3f3f45]',
           [
-            $route.params.id === file.id
+            $route.params.id === file._id
               ? 'bg-white dark:bg-[#2a2a30]'
               : 'bg-zinc-100 dark:bg-[#222224]',
           ]

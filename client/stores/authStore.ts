@@ -39,13 +39,18 @@ export const useAuthStore = defineStore("auth", () => {
   const logout = () => {
     user.value = null;
     token.value = "";
+    useFolderStore().dir.folders = []
+    useFolderStore().dir.files = []
   };
 
-  watch(() => user.value, async () => { 
-    useFolderStore().dir._id = user.value!.rootFolder;
-    useFolderStore().dir.parentId = user.value!.rootFolder;
-    await useFolderStore().getUserFolders();
-  })
+  // watch(() => user.value, async () => { 
+  //   useFolderStore().dir._id = user.value!.rootFolder;
+  //   useFolderStore().dir.parentId = user.value!.rootFolder;
+  // })
+
+  // watch(() => user.value, async () => {
+  //   await useFolderStore().getUserFolders();
+  // })
 
   return {
     user,

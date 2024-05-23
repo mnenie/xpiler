@@ -3,7 +3,7 @@ import { getIamToken } from '~/server/utils/auth-gpt';
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
 
-  const { text } = await readBody(event);
+  const { text, extension } = await readBody(event);
 
   const token = await getIamToken(config);
 
@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
       messages: [
         {
           role: 'system',
-          text: `Ты умный помощник который помогает автодополнить код по выбранному коду ${text}. Предлогай только один вариант автодополнения.`
+          text: `Ты умный помощник который помогает автодополнить код по выбранному коду ${text} основываясь на расширение файла ${extension}. Предлогай только один вариант автодополнения.`
         },
         {
           role: 'user',

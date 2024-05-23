@@ -2,7 +2,8 @@ import { toast } from "vue-sonner";
 
 export default function useEditorCompletion(
   text: Ref<string>,
-  content: Ref<string>
+  content: Ref<string>,
+  extension: Ref<string>
 ) {
   const isPending = ref(false);
 
@@ -15,6 +16,7 @@ export default function useEditorCompletion(
           method: "POST",
           body: JSON.stringify({
             text: text.value,
+            extension: extension.value,
           }),
         });
         resolve(data);

@@ -18,7 +18,7 @@ const langMap = new Map<string, string>([
   ["html", "html"],
   ["json", "json"],
   ["py", "python"],
-])
+]);
 
 export default function useEditor(
   monacoRef: vue_demi.ShallowRef<Nullable<typeof monaco_editor>>,
@@ -27,13 +27,15 @@ export default function useEditor(
   text: Ref<string>
 ) {
   const editorRef = shallowRef<monaco.editor.IStandaloneCodeEditor>();
-  const content = shallowRef("");
+  const content = ref("");
   const activeFile = shallowRef<IFile>();
   const monacoInstance = shallowRef<Nullable<typeof monaco_editor>>(null);
+  const language = shallowRef("");
 
-  const { onAutoCompletion } = useAutoCompletion(text, content);
-  const { onRefactoring } = useRefactoring(text, content);
   const { symbols, extension } = storeToRefs(useEditorStore());
+  const { onAutoCompletion } = useAutoCompletion(text, content, extension);
+  const { onRefactoring } = useRefactoring(text, content);
+  const { token } = storeToRefs(useAuthStore());
   const { onCollaboration } = useCollaboration();
 
   const onLoad = (editor: monaco.editor.IStandaloneCodeEditor) => {
@@ -48,19 +50,19 @@ export default function useEditor(
     );
 
     files = [...files].map((file) => {
-      content.value = file.content;
-      console.log(content.value)
       const uri = monacoInstance.value!.Uri.parse(
         `${file.name}.${file.extension}`
       );
+      content.value = file.content;
+      language.value = langMap.get(file.extension) || "javascript";
       const model = monacoInstance.value!.editor.createModel(
         content.value,
-        file.extension === "py" ? "python" : "javascript",
+        language.value,
         uri
       );
-      extension.value = file.extension;
-      activeFile.value = file
-      symbols.value = file.content
+
+      extension.value = language.value;
+      activeFile.value = file;
 
       modelMap.set(file._id, model);
       model.onDidChangeContent(() => {
@@ -76,9 +78,9 @@ export default function useEditor(
 
     aiMenuConfig(monacoInstance.value);
 
-    if (files.length === 1) {
-      navigateTo(COMPILER_ABOUT_ROUTE);
-    }
+    // if (files.length === 1) {
+    //   navigateTo(COMPILER_ABOUT_ROUTE);
+    // }
 
     onCollaboration(editorRef);
   };
@@ -125,12 +127,20 @@ export default function useEditor(
   watch(
     () => activeFile.value,
     () => {
-      extension.value = activeFile.value?.extension!;
+      extension.value = language.value;
+    }
+  );
+
+  watch(
+    () => content.value,
+    () => {
+      symbols.value = content.value;
     }
   );
 
   return {
     editorRef,
+    language,
     onLoad,
     switchTab,
     activeFile,
